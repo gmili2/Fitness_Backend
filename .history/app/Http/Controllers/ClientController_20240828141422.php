@@ -103,6 +103,16 @@ class ClientController extends Controller
         return $client;
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Client  $client
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Client $client)
+    {
+        //
+    }
 
     /**
      * Update the specified resource in storage.
@@ -149,24 +159,13 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(Client $client)
     {
-    $client = Client::find($id);
-    // Vérifier si le client existe
-    if (!$client) {
+        $client->delete();
+
         return response()->json([
-            'success' => false,
-            'message' => 'Client not found'
-        ], 404);
+            'success' => true,
+            'message' => 'Client deleted successfully'
+        ], Response::HTTP_OK);
     }
-
-    // Supprimer le client
-    $client->delete();
-
-    // Retourner une réponse de succès
-    return response()->json([
-        'success' => true,
-        'message' => 'Client deleted successfully'
-    ], 200);
-  }
 }

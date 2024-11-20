@@ -168,5 +168,4 @@ class ClientController extends Controller
         'success' => true,
         'message' => 'Client deleted successfully'
     ], 200);
-  }
 }

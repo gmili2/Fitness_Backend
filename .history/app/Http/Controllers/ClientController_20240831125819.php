@@ -152,6 +152,7 @@ class ClientController extends Controller
     public function destroy(int $id)
     {
     $client = Client::find($id);
+    dd($client);
     // Vérifier si le client existe
     if (!$client) {
         return response()->json([
@@ -168,5 +169,22 @@ class ClientController extends Controller
         'success' => true,
         'message' => 'Client deleted successfully'
     ], 200);
-  }
+$client = Client::find($id);
+
+    // Vérifier si le client existe
+    if (!$client) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Client not found'
+        ], 404);
+    }
+
+    // Supprimer le client
+    $client->delete();
+
+    // Retourner une réponse de succès
+    return response()->json([
+        'success' => true,
+        'message' => 'Client deleted successfully'
+    ], 200);    }
 }
