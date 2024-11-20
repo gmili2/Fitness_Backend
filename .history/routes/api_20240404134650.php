@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\ApiController;
-use App\Http\Controllers\ClientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,18 +32,5 @@ Route::group([
     Route::post('logout', 'ApiController@logout');
     Route::post('refresh', 'ApiController@refresh');
     Route::post('me', 'ApiController@me');
-
-});
-
-Route::group([
-
-    'middleware' => 'api',
-    'prefix' => 'client'
-
-], function ($router) {
-
-    Route::get('clients', [ClientController::class, 'index']);
-    Route::post('clients', [ClientController::class, 'store']);
-    Route::delete('clients/{id}', [ClientController::class, 'destroy']);  // Paramètre dynamique {id}
 
 });

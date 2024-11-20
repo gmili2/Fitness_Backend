@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class ClientController extends Controller
 {
     protected $user;
-
+ 
     public function __construct()
     {
         $this->user = JWTAuth::parseToken()->authenticate();
@@ -28,7 +28,18 @@ class ClientController extends Controller
         $clients = $this->user
             ->clients()
             ->get();
-        return $clients;
+            return $clients;
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        dd('ok');
+        //
     }
 
     /**
@@ -58,23 +69,22 @@ class ClientController extends Controller
             return response()->json(['error' => $validator->messages()], 200);
         }
         //Request is valid, create new client
-        try {
-            $client = new Client();
-
-            $client->email = $data['email'];
-            $client->first_name = $data['first_name'];
-            $client->last_name = $data['last_name'];
-            $client->age = $data['age'];
-            $client->image_path = $data['image_path'];
-            $client->phone_number = $data['phone_number'];
-            $client->registration_date = $data['registration_date'];
-            $client->expiration_date = $data['expiration_date'];
-            $client->user_id = $this->user->id;
-            $client->save();
-        } catch (\Exception $e) {
-            dd($e);
-        }
-
+        dd($this->user);
+        $client = $this->user->clients()->create([
+            'email' => $request->email,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'age' => $request->age,
+            'image_path' => $request->image_path,
+            'phone_number' => $request->phone_number,
+            'registration_date' => $request->registration_date,
+            'expiration_date' => $request->expiration_date,
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
+            'user_id' => $request->user_id,
+        ]);
+        
+dd($client);
         //Client created, return success response
         return response()->json([
             'success' => true,
@@ -92,17 +102,27 @@ class ClientController extends Controller
     public function show($id)
     {
         $client = $this->user->clients()->find($id);
-
+    
         if (!$client) {
             return response()->json([
                 'success' => false,
                 'message' => 'Sorry, client not found.'
             ], 400);
         }
-
+    
         return $client;
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Client  $client
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Client $client)
+    {
+        //
+    }
 
     /**
      * Update the specified resource in storage.
@@ -149,24 +169,13 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(Client $client)
     {
-    $client = Client::find($id);
-    // Vérifier si le client existe
-    if (!$client) {
+        $client->delete();
+        
         return response()->json([
-            'success' => false,
-            'message' => 'Client not found'
-        ], 404);
+            'success' => true,
+            'message' => 'Client deleted successfully'
+        ], Response::HTTP_OK);
     }
-
-    // Supprimer le client
-    $client->delete();
-
-    // Retourner une réponse de succès
-    return response()->json([
-        'success' => true,
-        'message' => 'Client deleted successfully'
-    ], 200);
-  }
 }
