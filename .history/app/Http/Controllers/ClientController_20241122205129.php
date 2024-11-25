@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -102,6 +103,7 @@ class ClientController extends Controller
         return $client;
     }
 
+
     /**
      * Update the specified resource in storage.
      *
@@ -111,67 +113,50 @@ class ClientController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        try {
-            // Récupérer le client par son ID
-            $client = Client::find($id);
+        // Récupérer le client par son ID
+        $client = Client::find($id);
 
-            // Vérifier si le client existe
-            if (!$client) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Client not found'
-                ], Response::HTTP_NOT_FOUND);
-            }
-
-            // Valider les données entrantes
-            $validator = Validator::make($request->all(), [
-                'email' => 'required|string|email|max:255',
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'age' => 'required|integer|min:0',
-                'image_path' => 'nullable|string|max:255',
-                'phone_number' => 'required|string|max:255',
-                'registration_date' => 'required|date',
-                'expiration_date' => 'required|date',
-                'user_id' => 'nullable|integer|exists:users,id'
-            ]);
-
-            // Retourner une réponse en cas d'échec de validation
-            if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'errors' => $validator->messages()
-                ], Response::HTTP_BAD_REQUEST);
-            }
-
-            // Mettre à jour les données du client
-            $client->update($request->only(
-                'email',
-                'first_name',
-                'last_name',
-                'age',
-                'image_path',
-                'phone_number',
-                'registration_date',
-                'expiration_date',
-                'user_id'
-            ));
-
-            // Retourner une réponse de succès
-            return response()->json([
-                'success' => true,
-                'message' => 'Client updated successfully',
-                'data' => $client
-            ], Response::HTTP_OK);
-        } catch (\Exception $e) {
-            // Gérer les erreurs et retourner une réponse générique
+        // Vérifier si le client existe
+        if (!$client) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while updating the client',
-                'error' => $e->getMessage() // Facultatif : à éviter en production pour ne pas exposer de détails
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+                'message' => 'Client not found'
+            ], Response::HTTP_NOT_FOUND);
         }
+
+        // Valider les données entrantes
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'age' => 'required|integer|min:0',
+            'image_path' => 'nullable|string|max:255',
+            'phone_number' => 'required|string|max:255',
+            'registration_date' => 'required|date',
+            'expiration_date' => 'required|date',
+            'user_id' => 'nullable|integer|exists:users,id'
+        ]);
+
+        // Retourner une réponse en cas d'échec de validation
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->messages()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        // Mettre à jour les données du client
+        $client->update($request->only('name', 'sku', 'price', 'quantity', 'email', 'first_name', 'last_name', 'age', 'image_path', 'phone_number', 'registration_date', 'expiration_date', 'user_id'));
+
+        // Retourner une réponse de succès
+        return response()->json([
+            'success' => true,
+            'message' => 'Client updated successfully',
+            'data' => $client
+        ], Response::HTTP_OK);
     }
+
+
 
     /**
      * Remove the specified resource from storage.
