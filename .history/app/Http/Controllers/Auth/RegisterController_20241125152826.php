@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str; // Assurez-vous que ce namespace est inclus
 
 class RegisterController extends Controller
 {
@@ -63,6 +62,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
+    use Illuminate\Support\Str; // Assurez-vous que ce namespace est inclus
 
     protected function create(array $data)
     {
