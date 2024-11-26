@@ -14,7 +14,8 @@ class ClientController extends Controller
 
     public function __construct()
     {
-        $this->user = JWTAuth::parseToken()->authenticate();
+        // $this->user = JWTAuth::parseToken()->authenticate();
+
     }
 
     /**
@@ -68,6 +69,7 @@ class ClientController extends Controller
             $client->phone_number = $data['phone_number'];
             $client->registration_date = $data['registration_date'];
             $client->expiration_date = $data['expiration_date'];
+            dd($this->user);
             $client->user_id = $this->user->id;
             $client->save();
         } catch (\Exception $e) {
