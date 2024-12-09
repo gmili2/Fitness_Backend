@@ -927,3 +927,4 @@
 192.168.65.1 - - [20/Nov/2024:14:24:33 +0000] "POST /api/auth/login HTTP/1.1" 200 394 "http://localhost:56759/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
 192.168.65.1 - - [20/Nov/2024:14:24:42 +0000] "OPTIONS /api/auth/login HTTP/1.1" 204 0 "http://localhost:56759/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
 192.168.65.1 - - [20/Nov/2024:14:24:43 +0000] "POST /api/auth/login HTTP/1.1" 200 394 "http://localhost:56759/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+192.168.65.1 - - [08/Dec/2024:12:02:33 +0000] "GET /css/app.css HTTP/1.1" 404 6628 "http://localhost:8091/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
