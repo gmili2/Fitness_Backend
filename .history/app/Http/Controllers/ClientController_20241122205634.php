@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -101,6 +102,7 @@ class ClientController extends Controller
 
         return $client;
     }
+
 
     /**
      * Update the specified resource in storage.
