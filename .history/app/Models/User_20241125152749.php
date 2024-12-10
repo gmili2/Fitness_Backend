@@ -23,8 +23,6 @@ class User extends Authenticatable implements JWTSubject
         'uuid'
     ];
 
-
-
     /**
      * The attributes that should be hidden for arrays.
      *
