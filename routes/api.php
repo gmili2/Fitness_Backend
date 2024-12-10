@@ -47,5 +47,6 @@ Route::group([
     Route::get('clients', [ClientController::class, 'index']);
     Route::post('clients', [ClientController::class, 'store']);
     Route::delete('clients/{id}', [ClientController::class, 'destroy']);  // Paramètre dynamique {id}
+    Route::patch('clients/{id}', [ClientController::class, 'update']);  // Paramètre dynamique {id}
 
 });
