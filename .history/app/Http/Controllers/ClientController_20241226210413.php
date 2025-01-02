@@ -7,7 +7,6 @@ use JWTAuth;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
 {
@@ -70,8 +69,6 @@ class ClientController extends Controller
             $client->registration_date = $data['registration_date'];
             $client->expiration_date = $data['expiration_date'];
             $client->user_id = $this->user->id;
-            $client->password = Hash::make($data['phone_number']);
-
             $client->save();
         } catch (\Exception $e) {
             dd($e);
@@ -221,18 +218,5 @@ class ClientController extends Controller
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
-    }
-
-    public function scannerCodeBarre(Request $request)
-    {
-        $client = Auth::guard('client-api')->user(); // Récupère le client authentifié
-        // Logique pour scanner le code barre en utilisant les infos du client
-        return response()->json(['message' => 'Scanner Code Barre', 'client' => $client]);
-    }
-
-    public function me(Request $request)
-    {
-        $client = Auth::guard('client-api')->user(); // Récupère le client authentifié
-        return response()->json(['client' => $client]);
     }
 }

@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-class Client extends Authenticatable implements JWTSubject// Hérite de Authenticatable
+class Client extends Authenticatable // Hérite de Authenticatable
 {
     use HasFactory;
     protected $table = 'clients'; // Si le nom de la table est différent de 'clients', spécifiez-le ici
@@ -31,17 +30,5 @@ class Client extends Authenticatable implements JWTSubject// Hérite de Authenti
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
-    public function clients()
-    {
-        return $this->hasMany(Client::class);
     }
 }

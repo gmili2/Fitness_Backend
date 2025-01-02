@@ -81,10 +81,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\UserAdmin::class,
         ],
-        'clients' => [ // New client provider
-            'driver' => 'eloquent',
-            'model' => App\Models\Client::class, // Your Client model
-        ],
 
         // 'users' => [
         //     'driver' => 'database',

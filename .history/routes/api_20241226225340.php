@@ -52,8 +52,8 @@ Route::group([
     'prefix' => 'client'
 
 ], function ($router) {
-    Route::post('scanner-code-barre', [ClientControllerAuth::class, 'scannerCodeBarre'])->middleware('auth.client');
-    Route::get('me', [ClientControllerAuth::class, 'me'])->middleware('auth.client');
+    Route::post('scanner-code-barre', [ClientController::class, 'scannerCodeBarre'])->middleware('auth.client');
+    Route::get('me', [ClientController::class, 'me'])->middleware('auth.client');
 
 
     Route::get('clients', [ClientController::class, 'index']);

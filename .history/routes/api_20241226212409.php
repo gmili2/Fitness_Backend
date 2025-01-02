@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ClientController;
-use App\Http\Controllers\ClientControllerAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,8 +41,8 @@ Route::group([
     'prefix' => 'auth'
 ], function ($router) {
     // ... autres routes auth
-    Route::post('client/login', [ClientControllerAuth::class, 'login']); // Route de login client
-    Route::post('client/logout', [ClientControllerAuth::class, 'logout']);
+    Route::post('client/login', [ClientController::class, 'login']); // Route de login client
+    Route::post('client/logout', [ClientController::class, 'logout']);
 });
 
 Route::group([
@@ -52,8 +51,8 @@ Route::group([
     'prefix' => 'client'
 
 ], function ($router) {
-    Route::post('scanner-code-barre', [ClientControllerAuth::class, 'scannerCodeBarre'])->middleware('auth.client');
-    Route::get('me', [ClientControllerAuth::class, 'me'])->middleware('auth.client');
+    Route::get('scanner-code-barre', [ClientController::class, 'scannerCodeBarre'])->middleware('auth.client');
+    Route::get('me', [ClientController::class, 'me'])->middleware('auth.client');
 
 
     Route::get('clients', [ClientController::class, 'index']);
