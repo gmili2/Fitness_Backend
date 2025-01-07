@@ -53,7 +53,7 @@ Route::group([
 
 ], function ($router) {
     Route::post('scanner-code-barre', [ClientControllerAuth::class, 'scannerCodeBarre'])->middleware('auth.client');
-    Route::get('scanner-code-barre/{id}', [ClientControllerAuth::class, 'getClientScans'])->middleware('auth.client');
+    Route::get('scanner-code-barre', [ClientControllerAuth::class, 'getClientScans'])->middleware('auth.client');
     Route::get('me', [ClientControllerAuth::class, 'me'])->middleware('auth.client');
 
 

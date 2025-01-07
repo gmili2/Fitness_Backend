@@ -26,7 +26,7 @@ class ClientControllerAuth extends Controller
         $credentials = $request->only('email', 'password');
 
         if ($token = Auth::guard('client-api')->attempt($credentials)) { // Use the correct guard
-            return response()->json(['access_token' => $token], 200);
+            return response()->json(['token' => $token], 200);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);

@@ -26,7 +26,7 @@ class ClientControllerAuth extends Controller
         $credentials = $request->only('email', 'password');
 
         if ($token = Auth::guard('client-api')->attempt($credentials)) { // Use the correct guard
-            return response()->json(['access_token' => $token], 200);
+            return response()->json(['token' => $token], 200);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
@@ -53,8 +53,9 @@ class ClientControllerAuth extends Controller
 
 
         if ($codeBarreRecu === $userLieAuClient->uuid) {
+            dd("ok") // Comparaison avec l'UUID de l'utilisateur
             $scan = Scan::create([
-                'client_id' => $client->id,
+                'client_id' => $$client->id,
                 'barcode' => $codeBarreRecu,
             ]);
             return response()->json([
@@ -68,11 +69,6 @@ class ClientControllerAuth extends Controller
         }
     }
 
-    public function getClientScans($clientId)
-    {
-        $client = Client::with('scans')->findOrFail($clientId);
-        return response()->json($client->scans);
-    }
     public function me(Request $request)
     {
         $client = Auth::guard('client-api')->user(); // Récupère le client authentifié
