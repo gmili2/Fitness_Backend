@@ -205,7 +205,6 @@ class ClientController extends Controller
 
     public function login(Request $request)
     {
-        dd("jdns");
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',

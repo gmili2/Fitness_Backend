@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
 {
@@ -50,7 +51,6 @@ class ClientController extends Controller
             'phone_number' => 'required|string|max:255',
             'registration_date' => 'required|date',
             'expiration_date' => 'required|date',
-            'user_id' => 'nullable|integer|exists:users,id'
         ]);
 
         //Send failed response if request is not valid
@@ -70,6 +70,8 @@ class ClientController extends Controller
             $client->registration_date = $data['registration_date'];
             $client->expiration_date = $data['expiration_date'];
             $client->user_id = $this->user->id;
+            $client->password = Hash::make($data['phone_number']);
+
             $client->save();
         } catch (\Exception $e) {
             dd($e);
@@ -102,7 +104,6 @@ class ClientController extends Controller
 
         return $client;
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -175,12 +176,6 @@ class ClientController extends Controller
         }
     }
 
-
-
-
-
-
-
     /**
      * Remove the specified resource from storage.
      *
@@ -206,5 +201,38 @@ class ClientController extends Controller
             'success' => true,
             'message' => 'Client deleted successfully'
         ], 200);
+    }
+
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+
+        $credentials = $request->only('email', 'password');
+
+        if ($token = Auth::guard('client-api')->attempt($credentials)) { // Use the correct guard
+            return response()->json(['access_token' => $token], 200);
+        }
+
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    // public function scannerCodeBarre(Request $request)
+    // {
+    // $client = Auth::guard('client-api')->user(); // Récupère le client authentifié
+    // Logique pour scanner le code barre en utilisant les infos du client
+    // return response()->json(['message' => 'Scanner Code Barre', 'client' => $client]);
+    // }
+
+    public function me(Request $request)
+    {
+        $client = Auth::guard('client-api')->user(); // Récupère le client authentifié
+        return response()->json(['client' => $client]);
     }
 }
