@@ -28,17 +28,17 @@ class ClientController extends Controller
                 'new_password' => 'required',
             ]);
             // Récupérer le client actuellement authentifié
-            $user = $this->user;
-            if (!$user) {
-                return response()->json(['message' => 'user not found'], 404);
+            $client = Auth::guard('client-api')->user();
+            if (!$client) {
+                return response()->json(['message' => 'Client not found'], 404);
             }
             // Vérifier si le mot de passe actuel est correct
-            if (!Hash::check($request->current_password, $user->password)) {
+            if (!Hash::check($request->current_password, $client->password)) {
                 return response()->json(['message' => 'Current password is incorrect'], 400);
             }
             // Mettre à jour le mot de passe
-            $user->password = Hash::make($request->new_password);
-            $user->save();
+            $client->password = Hash::make($request->new_password);
+            $client->save();
             return response()->json(['message' => 'Password updated successfully'], 200);
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Retourner les erreurs de validation

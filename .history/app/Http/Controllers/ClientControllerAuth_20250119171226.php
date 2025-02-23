@@ -19,7 +19,7 @@ class ClientControllerAuth extends Controller
             // Valider les données
             $request->validate([
                 'current_password' => 'required',
-                'new_password' => 'required',
+                'new_password' => 'required|min:8|confirmed',
             ]);
 
             // Récupérer le client actuellement authentifié

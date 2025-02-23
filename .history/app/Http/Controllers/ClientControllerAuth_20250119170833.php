@@ -12,46 +12,33 @@ use Illuminate\Support\Facades\Hash;
 
 class ClientControllerAuth extends Controller
 {
-
     public function updatePassword(Request $request)
     {
-        try {
-            // Valider les données
-            $request->validate([
-                'current_password' => 'required',
-                'new_password' => 'required',
-            ]);
+        // Valider les données
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
 
-            // Récupérer le client actuellement authentifié
-            $client = Auth::guard('client-api')->user();
-            if (!$client) {
-                return response()->json(['message' => 'Client not found'], 404);
-            }
+        // Trouver le client par ID
+        $client = Auth::guard('client-api')->user();
 
-            // Vérifier si le mot de passe actuel est correct
-            if (!Hash::check($request->current_password, $client->password)) {
-                return response()->json(['message' => 'Current password is incorrect'], 400);
-            }
 
-            // Mettre à jour le mot de passe
-            $client->password = Hash::make($request->new_password);
-            $client->save();
-
-            return response()->json(['message' => 'Password updated successfully'], 200);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // Retourner les erreurs de validation
-            return response()->json(['message' => 'Validation failed', 'errors' => $e->errors()], 422);
-        } catch (\Exception $e) {
-            // Gérer les autres exceptions
-            return response()->json(['message' => 'An error occurred', 'error' => $e->getMessage()], 500);
+        if (!$client) {
+            return response()->json(['message' => 'Client not found'], 404);
         }
+
+        // Vérifier si le mot de passe actuel est correct
+        if (!Hash::check($request->current_password, $client->password)) {
+            return response()->json(['message' => 'Current password is incorrect'], 400);
+        }
+
+        // Mettre à jour le mot de passe
+        $client->password = Hash::make($request->new_password);
+        $client->save();
+
+        return response()->json(['message' => 'Password updated successfully'], 200);
     }
-
-
-
-
-
-
 
 
     public function login(Request $request)

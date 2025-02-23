@@ -35,21 +35,9 @@ Route::group([
     Route::post('logout', [ApiController::class, 'logout']);
     Route::post('refresh', [ApiController::class, 'refresh']);
     Route::post('me', [ApiController::class, 'me']);
-
-});
-
-
-Route::group([
-
-    'middleware' => 'api',
-    'prefix' => 'user'
-
-], function ($router) {
-
     Route::patch('password', [ClientController::class, 'updatePassword']);
 
 });
-
 
 Route::group([
     'middleware' => 'api',

@@ -35,21 +35,7 @@ Route::group([
     Route::post('logout', [ApiController::class, 'logout']);
     Route::post('refresh', [ApiController::class, 'refresh']);
     Route::post('me', [ApiController::class, 'me']);
-
 });
-
-
-Route::group([
-
-    'middleware' => 'api',
-    'prefix' => 'user'
-
-], function ($router) {
-
-    Route::patch('password', [ClientController::class, 'updatePassword']);
-
-});
-
 
 Route::group([
     'middleware' => 'api',
@@ -73,6 +59,7 @@ Route::group([
 
 
     Route::get('clients', [ClientController::class, 'index']);
+    Route::patch('password', [ClientController::class, 'updatePassword'])->middleware('auth.client');
     Route::post('clients', [ClientController::class, 'store']);
     Route::delete('clients/{id}', [ClientController::class, 'destroy']);  // Paramètre dynamique {id}
     Route::patch('clients/{id}', [ClientController::class, 'update']);  // Paramètre dynamique {id}
