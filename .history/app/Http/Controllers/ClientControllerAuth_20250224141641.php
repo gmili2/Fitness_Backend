@@ -47,18 +47,12 @@ class ClientControllerAuth extends Controller
         }
     }
 
-    public function updateDatePointageSortie(Request $request, $id)
-    {
-        $request->validate([
-            'date_pointage_sortie' => 'required|date',
-        ]);
 
-        $scan = Scan::findOrFail($id);
-        $scan->date_pointage_sortie = $request->input('date_pointage_sortie');
-        $scan->save();
 
-        return response()->json(['message' => 'Date de pointage de sortie mise à jour avec succès.']);
-    }
+
+
+
+
 
     public function login(Request $request)
     {
@@ -78,32 +72,39 @@ class ClientControllerAuth extends Controller
 
         return response()->json(['error' => 'Unauthorized'], 401);
     }
-
     public function scannerCodeBarre(Request $request)
     {
         $request->validate([
-            'code_barre' => 'required|string', // Validation du code-barres
+            'code_barre' => 'required|string',
         ]);
 
         $codeBarreRecu = $request->input('code_barre');
-
         $client = Auth::guard('client-api')->user();
+
         if (!$client) {
             return response()->json(['error' => 'Client non authentifié.'], 401);
         }
 
-        $userLieAuClient = $client->user; // Récupère l'utilisateur lié au client
-
+        $userLieAuClient = $client->user;
         if (!$userLieAuClient) {
             return response()->json(['error' => 'Aucun utilisateur lié à ce client.'], 404);
         }
 
+        $scanExistant = Scan::where('client_id', $client->id)
+            ->where('barcode', $codeBarreRecu)
+            ->whereDate('created_at', now()->toDateString())
+            ->exists();
+
+        if ($scanExistant) {
+            return response()->json(['error' => 'Vous avez déjà scanné ce code-barres aujourd\'hui.'], 400);
+        }
 
         if ($codeBarreRecu === $userLieAuClient->uuid) {
             $scan = Scan::create([
                 'client_id' => $client->id,
                 'barcode' => $codeBarreRecu,
             ]);
+
             return response()->json([
                 'message' => 'Code-barres validé.',
                 'client' => $client,
@@ -115,27 +116,14 @@ class ClientControllerAuth extends Controller
         }
     }
 
-    public function getClientScans($id)
+    public function getClientScans($clientId)
     {
-        try {
-            $client = Client::with('scans')->findOrFail($id);
-            return response()->json($client->scans);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return response()->json(['error' => 'Client not found'], 404);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'An error occurred', 'message' => $e->getMessage()], 500);
-        }
+        $client = Client::with('scans')->findOrFail($clientId);
+        return response()->json($client->scans);
     }
     public function me(Request $request)
     {
         $client = Auth::guard('client-api')->user(); // Récupère le client authentifié
         return response()->json($client);
-    }
-
-    public function testMethod($id)
-    {
-        dd($id);
-        $client = Client::with('scans')->findOrFail($id);
-        return response()->json($client->scans);
     }
 }

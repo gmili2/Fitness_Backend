@@ -47,18 +47,12 @@ class ClientControllerAuth extends Controller
         }
     }
 
-    public function updateDatePointageSortie(Request $request, $id)
-    {
-        $request->validate([
-            'date_pointage_sortie' => 'required|date',
-        ]);
 
-        $scan = Scan::findOrFail($id);
-        $scan->date_pointage_sortie = $request->input('date_pointage_sortie');
-        $scan->save();
 
-        return response()->json(['message' => 'Date de pointage de sortie mise à jour avec succès.']);
-    }
+
+
+
+
 
     public function login(Request $request)
     {
@@ -81,6 +75,7 @@ class ClientControllerAuth extends Controller
 
     public function scannerCodeBarre(Request $request)
     {
+        dd("dkcs,");
         $request->validate([
             'code_barre' => 'required|string', // Validation du code-barres
         ]);
@@ -115,27 +110,14 @@ class ClientControllerAuth extends Controller
         }
     }
 
-    public function getClientScans($id)
+    public function getClientScans($clientId)
     {
-        try {
-            $client = Client::with('scans')->findOrFail($id);
-            return response()->json($client->scans);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return response()->json(['error' => 'Client not found'], 404);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'An error occurred', 'message' => $e->getMessage()], 500);
-        }
+        $client = Client::with('scans')->findOrFail($clientId);
+        return response()->json($client->scans);
     }
     public function me(Request $request)
     {
         $client = Auth::guard('client-api')->user(); // Récupère le client authentifié
         return response()->json($client);
-    }
-
-    public function testMethod($id)
-    {
-        dd($id);
-        $client = Client::with('scans')->findOrFail($id);
-        return response()->json($client->scans);
     }
 }

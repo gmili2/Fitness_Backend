@@ -70,8 +70,6 @@ Route::group([
     Route::get('scanner-code-barre/{id}', [ClientControllerAuth::class, 'getClientScans'])->middleware('auth.client');
     Route::post('me', [ClientControllerAuth::class, 'me'])->middleware('auth.client');
     Route::patch('password', [ClientControllerAuth::class, 'updatePassword'])->middleware('auth.client');
-    Route::get('test/{id}', [ClientControllerAuth::class, 'testMethod']);
-    Route::patch('scans/{id}/update-date-pointage-sortie', [ClientControllerAuth::class, 'updateDatePointageSortie']);
 
 
     Route::get('clients', [ClientController::class, 'index']);

@@ -20,10 +20,9 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
-        'uuid'
+        'uuid',
+        'image'
     ];
-
-
 
     /**
      * The attributes that should be hidden for arrays.
@@ -61,5 +60,13 @@ class User extends Authenticatable implements JWTSubject
     public function clients()
     {
         return $this->hasMany(Client::class);
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if ($this->image) {
+            return asset('storage/' . $this->image);
+        }
+        return null;
     }
 }

@@ -1,39 +1,44 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.app')
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-        </div>
-
-        @if (session('status') == 'verification-link-sent')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ __('A new verification link has been sent to the email address you provided during registration.') }}
-            </div>
-        @endif
-
-        <div class="mt-4 flex items-center justify-between">
-            <form method="POST" action="{{ route('verification.send') }}">
-                @csrf
-
-                <div>
-                    <x-button>
-                        {{ __('Resend Verification Email') }}
-                    </x-button>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white;">
+                    <h4 class="mb-0">
+                        <i class='bx bx-check-shield me-2'></i>{{ __('Vérification de l\'adresse email') }}
+                    </h4>
                 </div>
-            </form>
 
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
+                <div class="card-body" style="background-color: #f8f9fa;">
+                    @if (session('resent'))
+                        <div class="alert alert-success" role="alert">
+                            <i class='bx bx-check-circle me-2'></i>{{ __('Un nouveau lien de vérification a été envoyé à votre adresse email.') }}
+                        </div>
+                    @endif
 
-                <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    {{ __('Log Out') }}
-                </button>
-            </form>
+                    <div class="text-muted mb-4">
+                        <i class='bx bx-info-circle me-2'></i>
+                        {{ __('Merci de votre inscription ! Avant de continuer, veuillez vérifier votre adresse email en cliquant sur le lien que nous venons de vous envoyer. Si vous n\'avez pas reçu l\'email, nous pouvons vous en envoyer un autre.') }}
+                    </div>
+
+                    <form method="POST" action="{{ route('verification.send') }}" class="mb-3">
+                        @csrf
+                        <button type="submit" class="btn btn-danger w-100">
+                            <i class='bx bx-mail-send me-2'></i>{{ __('Renvoyer l\'email de vérification') }}
+                        </button>
+                    </form>
+
+                    <form method="POST" action="{{ route('logout') }}" class="text-center">
+                        @csrf
+                        <button type="submit" class="btn btn-link">
+                            <i class='bx bx-log-out me-2'></i>{{ __('Se déconnecter') }}
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </x-auth-card>
-</x-guest-layout>
+    </div>
+</div>
+@endsection

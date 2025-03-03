@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\UserAdminAuthController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +43,13 @@ Route::prefix('admin')->group(function () {
         Route::get('/users', [AdminDashboardController::class, 'listUsers'])->name('admin.users');
         Route::get('/users/create', [AdminDashboardController::class, 'createUser'])->name('admin.users.create');
         Route::post('/users', [AdminDashboardController::class, 'storeUser'])->name('admin.users.store');
+        Route::get('/users/{id}', [AdminDashboardController::class, 'showUser'])->name('admin.users.show');
         Route::get('/users/{id}/edit', [AdminDashboardController::class, 'editUser'])->name('admin.users.edit');
         Route::put('/users/{id}', [AdminDashboardController::class, 'updateUser'])->name('admin.users.update');
         Route::delete('/users/{id}', [AdminDashboardController::class, 'deleteUser'])->name('admin.users.delete');
+        
+        // Gestion des associations client-utilisateur
+        Route::get('/users/{id}/assign-clients', [AdminDashboardController::class, 'showAssignClientForm'])->name('admin.users.assign-clients');
+        Route::post('/users/{id}/assign-clients', [AdminDashboardController::class, 'assignClients'])->name('admin.users.assign-clients.store');
     });
 });
