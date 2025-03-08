@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ClientControllerAuth extends Controller
 {
@@ -53,11 +54,21 @@ class ClientControllerAuth extends Controller
             'date_pointage_sortie' => 'required|date',
         ]);
 
-        $scan = Scan::findOrFail($id);
-        $scan->date_pointage_sortie = $request->input('date_pointage_sortie');
-        $scan->save();
+        try {
+            $scan = Scan::findOrFail($id);
 
-        return response()->json(['message' => 'Date de pointage de sortie mise à jour avec succès.']);
+            // Vérifier si la date de pointage de sortie est déjà remplie
+            if ($scan->date_pointage_sortie) {
+                return response()->json(['error' => 'Le pointage de sortie est déjà fait à la date suivante : ' . $scan->date_pointage_sortie], 400);
+            }
+
+            $scan->date_pointage_sortie = $request->input('date_pointage_sortie');
+            $scan->save();
+
+            return response()->json(['message' => 'Date de pointage de sortie mise à jour avec succès.']);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Scan non trouvé.'], 404);
+        }
     }
 
     public function login(Request $request)
@@ -98,6 +109,15 @@ class ClientControllerAuth extends Controller
             return response()->json(['error' => 'Aucun utilisateur lié à ce client.'], 404);
         }
 
+        // Vérifier si le client a déjà un scan pour le jour actuel
+        $today = now()->startOfDay();
+        $existingScan = Scan::where('client_id', $client->id)
+            ->where('created_at', '>=', $today)
+            ->first();
+
+        if ($existingScan) {
+            return response()->json(['error' => 'Le client a déjà un scan pour aujourd\'hui.'], 400);
+        }
 
         if ($codeBarreRecu === $userLieAuClient->uuid) {
             $scan = Scan::create([
@@ -108,7 +128,8 @@ class ClientControllerAuth extends Controller
                 'message' => 'Code-barres validé.',
                 'client' => $client,
                 'user' => $userLieAuClient,
-                'code_barre_recu' => $codeBarreRecu
+                'code_barre_recu' => $codeBarreRecu,
+                "scan"=>$scan
             ], 200);
         } else {
             return response()->json(['error' => 'Code-barres invalide.'], 400);
