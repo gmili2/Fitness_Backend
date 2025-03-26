@@ -163,22 +163,36 @@ class ClientControllerAuth extends Controller
     public function getScansWithinWeek($date)
     {
         try {
-            //$client = Client::findOrFail($id);
             $client = Auth::guard('client-api')->user();
+            if (!$client) {
+                return response()->json(['error' => 'Client not authenticated'], 401);
+            }
+
             $startDate = \Carbon\Carbon::parse($date)->startOfWeek();
             $endDate = \Carbon\Carbon::parse($date)->endOfWeek();
 
             $scans = Scan::where('client_id', $client->id)
                 ->whereBetween('created_at', [$startDate, $endDate])
                 ->get()
-                ->groupBy(function($date) {
-                    return \Carbon\Carbon::parse($date->created_at)->format('Y-m-d');
-                });;
-
-                $scanCounts = $scans->map(function ($day) {
-                    return count($day);
+                ->groupBy(function ($scan) {
+                    return \Carbon\Carbon::parse($scan->created_at)->format('Y-m-d');
                 });
-                return response()->json($scanCounts->toArray());
+
+            $timeByDay = $scans->map(function ($dayScans) {
+                $totalMinutes = $dayScans->sum(function ($scan) {
+                    if ($scan->date_pointage_sortie) {
+                        return \Carbon\Carbon::parse($scan->date_pointage_sortie)->diffInMinutes(\Carbon\Carbon::parse($scan->created_at));
+                    }
+                    return 0;
+                });
+
+                $hours = floor($totalMinutes / 60);
+                $minutes = $totalMinutes % 60;
+
+                return (float) $hours + ($minutes / 100);
+            });
+
+            return response()->json($timeByDay->toArray());
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json(['error' => 'Client not found'], 404);
         } catch (\Exception $e) {

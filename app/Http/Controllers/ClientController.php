@@ -266,6 +266,15 @@ class ClientController extends Controller
         return response()->json(['client' => $client]);
     }
 
+    public function getActiveScans()
+    {
+        try {
+            $activeScansCount = Scan::whereNull('date_pointage_sortie')->count();
+            return response()->json(['active_scans_count' => $activeScansCount]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred', 'message' => $e->getMessage()], 500);
+        }
+    }
     public function getScansCountByDay($date)
     {
         try {
