@@ -159,4 +159,66 @@ class ClientControllerAuth extends Controller
         $client = Client::with('scans')->findOrFail($id);
         return response()->json($client->scans);
     }
+
+    public function getScansWithinWeek($date)
+    {
+        try {
+            //$client = Client::findOrFail($id);
+            $client = Auth::guard('client-api')->user();
+            $startDate = \Carbon\Carbon::parse($date)->startOfWeek();
+            $endDate = \Carbon\Carbon::parse($date)->endOfWeek();
+
+            $scans = Scan::where('client_id', $client->id)
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->get()
+                ->groupBy(function($date) {
+                    return \Carbon\Carbon::parse($date->created_at)->format('Y-m-d');
+                });;
+
+                $scanCounts = $scans->map(function ($day) {
+                    return count($day);
+                });
+                return response()->json($scanCounts->toArray());
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['error' => 'Client not found'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function getActiveScans()
+    {
+        try {
+            $activeScansCount = Scan::whereNull('date_pointage_sortie')->count();
+            return response()->json(['active_scans_count' => $activeScansCount]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function getScansCountByDay($date)
+    {
+        try {
+            $client = Auth::guard('client-api')->user();
+            $startDate = \Carbon\Carbon::parse($date)->startOfWeek();
+            $endDate = \Carbon\Carbon::parse($date)->endOfWeek();
+
+            $scans = Scan::where('client_id', $client->id)
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->get()
+                ->groupBy(function($date) {
+                    return \Carbon\Carbon::parse($date->created_at)->format('Y-m-d');
+                });
+
+            $scanCounts = $scans->map(function ($day) {
+                return count($day);
+            });
+
+            return response()->json($scanCounts->toArray());
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['error' => 'Client not found'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred', 'message' => $e->getMessage()], 500);
+        }
+    }
 }

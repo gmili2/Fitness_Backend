@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Scan;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Symfony\Component\HttpFoundation\Response;
@@ -263,5 +264,31 @@ class ClientController extends Controller
     {
         $client = Auth::guard('client-api')->user(); // Récupère le client authentifié
         return response()->json(['client' => $client]);
+    }
+
+    public function getScansCountByDay($date)
+    {
+        try {
+            $client = $this->user;
+            $startDate = \Carbon\Carbon::parse($date)->startOfWeek();
+            $endDate = \Carbon\Carbon::parse($date)->endOfWeek();
+
+            $scans = Scan::
+            whereBetween('created_at', [$startDate, $endDate])
+                ->get()
+                ->groupBy(function($date) {
+                    return \Carbon\Carbon::parse($date->created_at)->format('Y-m-d');
+                });
+
+            $scanCounts = $scans->map(function ($day) {
+                return count($day);
+            });
+
+            return response()->json($scanCounts);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['error' => 'Client not found'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred', 'message' => $e->getMessage()], 500);
+        }
     }
 }

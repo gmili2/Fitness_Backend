@@ -71,12 +71,13 @@ Route::group([
     Route::post('me', [ClientControllerAuth::class, 'me'])->middleware('auth.client');
     Route::patch('password', [ClientControllerAuth::class, 'updatePassword'])->middleware('auth.client');
     Route::get('test/{id}', [ClientControllerAuth::class, 'testMethod']);
-    Route::patch('scans/{id}/update-date-pointage-sortie', [ClientControllerAuth::class, 'updateDatePointageSortie']);
-
-
+    Route::patch('scans/{id}/update-date-pointage-sortie', [ClientControllerAuth::class, 'updateDatePointageSortie'])->middleware('auth.client');
+    Route::get('scans-week/{date}', [ClientControllerAuth::class, 'getScansWithinWeek'])->middleware('auth.client');
     Route::get('clients', [ClientController::class, 'index']);
     Route::post('clients', [ClientController::class, 'store']);
     Route::delete('clients/{id}', [ClientController::class, 'destroy']);  // Paramètre dynamique {id}
     Route::patch('clients/{id}', [ClientController::class, 'update']);  // Paramètre dynamique {id}
+    Route::get('active-scans', [ClientControllerAuth::class, 'getActiveScans'])->middleware('auth.client');
+    Route::get('scans-count-by-day/{date}', [ClientController::class, 'getScansCountByDay']);
 
 });
