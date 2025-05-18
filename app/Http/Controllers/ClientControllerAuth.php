@@ -150,12 +150,23 @@ class ClientControllerAuth extends Controller
     public function me(Request $request)
     {
         $client = Auth::guard('client-api')->user(); // Récupère le client authentifié
+
+        if (!$client) {
+            return response()->json(['error' => 'Client not authenticated'], 401);
+        }
+
+        $lastScan = Scan::where('client_id', $client->id)
+            ->whereNull('date_pointage_sortie')
+            ->latest('created_at')
+            ->first();
+
+        $client->scans = $lastScan ? [$lastScan] : [];
+
         return response()->json($client);
     }
 
     public function testMethod($id)
     {
-        dd($id);
         $client = Client::with('scans')->findOrFail($id);
         return response()->json($client->scans);
     }

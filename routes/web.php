@@ -29,8 +29,7 @@ require __DIR__ . '/auth.php';
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
+//todo : gestion des clients pour les utilisateurs
 Route::prefix('admin')->group(function () {
     Route::get('/login', [UserAdminAuthController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [UserAdminAuthController::class, 'login'])->name('admin.login.submit');

@@ -1800,3 +1800,373 @@
 2025/03/25 14:43:28 [notice] 1#1: start worker process 26
 2025/03/25 14:43:28 [notice] 1#1: start worker process 27
 2025/03/26 23:03:58 [error] 27#27: *998 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "192.168.11.100:8091", referrer: "http://localhost:59953/"
+2025/03/29 15:25:26 [error] 27#27: *1319 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "172.20.10.3:8091", referrer: "http://localhost:62113/"
+2025/03/29 15:44:30 [error] 27#27: *1365 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "172.20.10.3:8091", referrer: "http://localhost:62113/"
+2025/03/30 14:04:13 [notice] 1#1: using the "epoll" event method
+2025/03/30 14:04:13 [notice] 1#1: nginx/1.27.4
+2025/03/30 14:04:13 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
+2025/03/30 14:04:13 [notice] 1#1: OS: Linux 6.6.12-linuxkit
+2025/03/30 14:04:13 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2025/03/30 14:04:13 [notice] 1#1: start worker processes
+2025/03/30 14:04:13 [notice] 1#1: start worker process 19
+2025/03/30 14:04:13 [notice] 1#1: start worker process 20
+2025/03/30 14:04:13 [notice] 1#1: start worker process 21
+2025/03/30 14:04:13 [notice] 1#1: start worker process 22
+2025/03/30 14:04:13 [notice] 1#1: start worker process 23
+2025/03/30 14:04:13 [notice] 1#1: start worker process 24
+2025/03/30 14:04:13 [notice] 1#1: start worker process 25
+2025/03/30 14:04:13 [notice] 1#1: start worker process 26
+2025/04/01 16:11:49 [error] 22#22: *282 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "localhost:8091", referrer: "http://localhost:53322/"
+2025/04/01 16:18:27 [error] 23#23: *354 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "localhost:8091", referrer: "http://localhost:53322/"
+2025/04/03 16:01:38 [error] 26#26: *519 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "192.168.3.151:8091", referrer: "http://localhost:64445/"
+2025/04/03 17:25:39 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2025/04/03 17:25:39 [notice] 20#20: gracefully shutting down
+2025/04/03 17:25:39 [notice] 19#19: gracefully shutting down
+2025/04/03 17:25:39 [notice] 26#26: gracefully shutting down
+2025/04/03 17:25:39 [notice] 25#25: gracefully shutting down
+2025/04/03 17:25:39 [notice] 21#21: gracefully shutting down
+2025/04/03 17:25:39 [notice] 26#26: exiting
+2025/04/03 17:25:39 [notice] 24#24: gracefully shutting down
+2025/04/03 17:25:39 [notice] 23#23: gracefully shutting down
+2025/04/03 17:25:39 [notice] 22#22: gracefully shutting down
+2025/04/03 17:25:39 [notice] 19#19: exiting
+2025/04/03 17:25:39 [notice] 25#25: exiting
+2025/04/03 17:25:39 [notice] 26#26: exit
+2025/04/03 17:25:39 [notice] 19#19: exit
+2025/04/03 17:25:39 [notice] 25#25: exit
+2025/04/03 17:25:39 [notice] 20#20: exiting
+2025/04/03 17:25:39 [notice] 24#24: exiting
+2025/04/03 17:25:39 [notice] 20#20: exit
+2025/04/03 17:25:39 [notice] 22#22: exiting
+2025/04/03 17:25:39 [notice] 21#21: exiting
+2025/04/03 17:25:39 [notice] 23#23: exiting
+2025/04/03 17:25:39 [notice] 24#24: exit
+2025/04/03 17:25:39 [notice] 22#22: exit
+2025/04/03 17:25:39 [notice] 21#21: exit
+2025/04/03 17:25:39 [notice] 23#23: exit
+2025/04/03 17:25:39 [notice] 1#1: signal 17 (SIGCHLD) received from 25
+2025/04/03 17:25:39 [notice] 1#1: worker process 20 exited with code 0
+2025/04/03 17:25:39 [notice] 1#1: worker process 21 exited with code 0
+2025/04/03 17:25:39 [notice] 1#1: worker process 24 exited with code 0
+2025/04/03 17:25:39 [notice] 1#1: worker process 25 exited with code 0
+2025/04/03 17:25:39 [notice] 1#1: worker process 26 exited with code 0
+2025/04/03 17:25:39 [notice] 1#1: signal 29 (SIGIO) received
+2025/04/03 17:25:39 [notice] 1#1: signal 17 (SIGCHLD) received from 24
+2025/04/03 17:25:39 [notice] 1#1: signal 17 (SIGCHLD) received from 22
+2025/04/03 17:25:39 [notice] 1#1: worker process 19 exited with code 0
+2025/04/03 17:25:39 [notice] 1#1: worker process 22 exited with code 0
+2025/04/03 17:25:39 [notice] 1#1: worker process 23 exited with code 0
+2025/04/03 17:25:39 [notice] 1#1: exit
+2025/04/03 17:28:56 [notice] 1#1: using the "epoll" event method
+2025/04/03 17:28:56 [notice] 1#1: nginx/1.27.4
+2025/04/03 17:28:56 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
+2025/04/03 17:28:56 [notice] 1#1: OS: Linux 6.6.12-linuxkit
+2025/04/03 17:28:56 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2025/04/03 17:28:56 [notice] 1#1: start worker processes
+2025/04/03 17:28:56 [notice] 1#1: start worker process 20
+2025/04/03 17:28:56 [notice] 1#1: start worker process 21
+2025/04/03 17:28:56 [notice] 1#1: start worker process 22
+2025/04/03 17:28:56 [notice] 1#1: start worker process 23
+2025/04/03 17:28:56 [notice] 1#1: start worker process 24
+2025/04/03 17:28:56 [notice] 1#1: start worker process 25
+2025/04/03 17:28:56 [notice] 1#1: start worker process 26
+2025/04/03 17:28:56 [notice] 1#1: start worker process 27
+2025/04/10 14:20:43 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2025/04/10 14:20:43 [notice] 20#20: gracefully shutting down
+2025/04/10 14:20:43 [notice] 24#24: gracefully shutting down
+2025/04/10 14:20:43 [notice] 22#22: gracefully shutting down
+2025/04/10 14:20:43 [notice] 20#20: exiting
+2025/04/10 14:20:43 [notice] 25#25: gracefully shutting down
+2025/04/10 14:20:43 [notice] 26#26: gracefully shutting down
+2025/04/10 14:20:43 [notice] 21#21: gracefully shutting down
+2025/04/10 14:20:43 [notice] 24#24: exiting
+2025/04/10 14:20:43 [notice] 27#27: gracefully shutting down
+2025/04/10 14:20:43 [notice] 22#22: exiting
+2025/04/10 14:20:43 [notice] 25#25: exiting
+2025/04/10 14:20:43 [notice] 20#20: exit
+2025/04/10 14:20:43 [notice] 23#23: gracefully shutting down
+2025/04/10 14:20:43 [notice] 24#24: exit
+2025/04/10 14:20:43 [notice] 26#26: exiting
+2025/04/10 14:20:43 [notice] 27#27: exiting
+2025/04/10 14:20:43 [notice] 27#27: exit
+2025/04/10 14:20:43 [notice] 25#25: exit
+2025/04/10 14:20:43 [notice] 22#22: exit
+2025/04/10 14:20:43 [notice] 21#21: exiting
+2025/04/10 14:20:43 [notice] 23#23: exiting
+2025/04/10 14:20:43 [notice] 23#23: exit
+2025/04/10 14:20:43 [notice] 26#26: exit
+2025/04/10 14:20:43 [notice] 21#21: exit
+2025/04/10 14:20:43 [notice] 1#1: signal 17 (SIGCHLD) received from 20
+2025/04/10 14:20:43 [notice] 1#1: worker process 20 exited with code 0
+2025/04/10 14:20:43 [notice] 1#1: signal 29 (SIGIO) received
+2025/04/10 14:20:43 [notice] 1#1: signal 17 (SIGCHLD) received from 25
+2025/04/10 14:20:43 [notice] 1#1: worker process 25 exited with code 0
+2025/04/10 14:20:43 [notice] 1#1: signal 29 (SIGIO) received
+2025/04/10 14:20:43 [notice] 1#1: signal 17 (SIGCHLD) received from 24
+2025/04/10 14:20:43 [notice] 1#1: worker process 21 exited with code 0
+2025/04/10 14:20:43 [notice] 1#1: worker process 22 exited with code 0
+2025/04/10 14:20:43 [notice] 1#1: worker process 23 exited with code 0
+2025/04/10 14:20:43 [notice] 1#1: worker process 24 exited with code 0
+2025/04/10 14:20:43 [notice] 1#1: worker process 26 exited with code 0
+2025/04/10 14:20:43 [notice] 1#1: worker process 27 exited with code 0
+2025/04/10 14:20:43 [notice] 1#1: exit
+2025/04/14 10:50:23 [notice] 1#1: using the "epoll" event method
+2025/04/14 10:50:23 [notice] 1#1: nginx/1.27.4
+2025/04/14 10:50:23 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
+2025/04/14 10:50:23 [notice] 1#1: OS: Linux 6.6.12-linuxkit
+2025/04/14 10:50:23 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2025/04/14 10:50:23 [notice] 1#1: start worker processes
+2025/04/14 10:50:23 [notice] 1#1: start worker process 20
+2025/04/14 10:50:23 [notice] 1#1: start worker process 21
+2025/04/14 10:50:23 [notice] 1#1: start worker process 22
+2025/04/14 10:50:23 [notice] 1#1: start worker process 23
+2025/04/14 10:50:23 [notice] 1#1: start worker process 24
+2025/04/14 10:50:23 [notice] 1#1: start worker process 25
+2025/04/14 10:50:23 [notice] 1#1: start worker process 26
+2025/04/14 10:50:23 [notice] 1#1: start worker process 27
+2025/04/14 15:16:35 [error] 24#24: *261 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "192.168.11.107:8091", referrer: "http://localhost:55294/"
+2025/04/16 09:38:55 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2025/04/16 09:38:55 [notice] 21#21: gracefully shutting down
+2025/04/16 09:38:55 [notice] 22#22: gracefully shutting down
+2025/04/16 09:38:55 [notice] 25#25: gracefully shutting down
+2025/04/16 09:38:55 [notice] 23#23: gracefully shutting down
+2025/04/16 09:38:55 [notice] 20#20: gracefully shutting down
+2025/04/16 09:38:55 [notice] 25#25: exiting
+2025/04/16 09:38:55 [notice] 26#26: gracefully shutting down
+2025/04/16 09:38:55 [notice] 20#20: exiting
+2025/04/16 09:38:55 [notice] 21#21: exiting
+2025/04/16 09:38:55 [notice] 27#27: gracefully shutting down
+2025/04/16 09:38:55 [notice] 22#22: exiting
+2025/04/16 09:38:55 [notice] 24#24: gracefully shutting down
+2025/04/16 09:38:55 [notice] 23#23: exiting
+2025/04/16 09:38:55 [notice] 20#20: exit
+2025/04/16 09:38:55 [notice] 21#21: exit
+2025/04/16 09:38:55 [notice] 26#26: exiting
+2025/04/16 09:38:55 [notice] 22#22: exit
+2025/04/16 09:38:55 [notice] 26#26: exit
+2025/04/16 09:38:55 [notice] 25#25: exit
+2025/04/16 09:38:55 [notice] 27#27: exiting
+2025/04/16 09:38:55 [notice] 24#24: exiting
+2025/04/16 09:38:55 [notice] 23#23: exit
+2025/04/16 09:38:55 [notice] 27#27: exit
+2025/04/16 09:38:55 [notice] 24#24: exit
+2025/04/16 09:38:55 [notice] 1#1: signal 17 (SIGCHLD) received from 25
+2025/04/16 09:38:55 [notice] 1#1: worker process 25 exited with code 0
+2025/04/16 09:38:55 [notice] 1#1: signal 29 (SIGIO) received
+2025/04/16 09:38:55 [notice] 1#1: signal 17 (SIGCHLD) received from 21
+2025/04/16 09:38:55 [notice] 1#1: worker process 21 exited with code 0
+2025/04/16 09:38:55 [notice] 1#1: signal 29 (SIGIO) received
+2025/04/16 09:38:55 [notice] 1#1: signal 17 (SIGCHLD) received from 20
+2025/04/16 09:38:55 [notice] 1#1: worker process 20 exited with code 0
+2025/04/16 09:38:55 [notice] 1#1: worker process 22 exited with code 0
+2025/04/16 09:38:55 [notice] 1#1: worker process 23 exited with code 0
+2025/04/16 09:38:55 [notice] 1#1: worker process 26 exited with code 0
+2025/04/16 09:38:55 [notice] 1#1: signal 29 (SIGIO) received
+2025/04/16 09:38:55 [notice] 1#1: signal 17 (SIGCHLD) received from 22
+2025/04/16 09:38:55 [notice] 1#1: worker process 24 exited with code 0
+2025/04/16 09:38:55 [notice] 1#1: signal 29 (SIGIO) received
+2025/04/16 09:38:55 [notice] 1#1: signal 17 (SIGCHLD) received from 27
+2025/04/16 09:38:55 [notice] 1#1: worker process 27 exited with code 0
+2025/04/16 09:38:55 [notice] 1#1: exit
+2025/04/26 21:21:05 [notice] 1#1: using the "epoll" event method
+2025/04/26 21:21:05 [notice] 1#1: nginx/1.27.5
+2025/04/26 21:21:05 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
+2025/04/26 21:21:05 [notice] 1#1: OS: Linux 6.6.12-linuxkit
+2025/04/26 21:21:05 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2025/04/26 21:21:05 [notice] 1#1: start worker processes
+2025/04/26 21:21:05 [notice] 1#1: start worker process 20
+2025/04/26 21:21:05 [notice] 1#1: start worker process 21
+2025/04/26 21:21:05 [notice] 1#1: start worker process 22
+2025/04/26 21:21:05 [notice] 1#1: start worker process 23
+2025/04/26 21:21:05 [notice] 1#1: start worker process 24
+2025/04/26 21:21:05 [notice] 1#1: start worker process 25
+2025/04/26 21:21:05 [notice] 1#1: start worker process 26
+2025/04/26 21:21:05 [notice] 1#1: start worker process 27
+2025/04/29 11:32:24 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2025/04/29 11:32:24 [notice] 22#22: gracefully shutting down
+2025/04/29 11:32:24 [notice] 20#20: gracefully shutting down
+2025/04/29 11:32:24 [notice] 21#21: gracefully shutting down
+2025/04/29 11:32:24 [notice] 23#23: gracefully shutting down
+2025/04/29 11:32:24 [notice] 24#24: gracefully shutting down
+2025/04/29 11:32:24 [notice] 27#27: gracefully shutting down
+2025/04/29 11:32:24 [notice] 26#26: gracefully shutting down
+2025/04/29 11:32:24 [notice] 20#20: exiting
+2025/04/29 11:32:24 [notice] 25#25: gracefully shutting down
+2025/04/29 11:32:24 [notice] 22#22: exiting
+2025/04/29 11:32:24 [notice] 23#23: exiting
+2025/04/29 11:32:24 [notice] 21#21: exiting
+2025/04/29 11:32:24 [notice] 22#22: exit
+2025/04/29 11:32:24 [notice] 23#23: exit
+2025/04/29 11:32:24 [notice] 20#20: exit
+2025/04/29 11:32:24 [notice] 26#26: exiting
+2025/04/29 11:32:24 [notice] 24#24: exiting
+2025/04/29 11:32:24 [notice] 21#21: exit
+2025/04/29 11:32:24 [notice] 26#26: exit
+2025/04/29 11:32:24 [notice] 25#25: exiting
+2025/04/29 11:32:24 [notice] 24#24: exit
+2025/04/29 11:32:24 [notice] 27#27: exiting
+2025/04/29 11:32:24 [notice] 27#27: exit
+2025/04/29 11:32:24 [notice] 25#25: exit
+2025/04/29 11:32:24 [notice] 1#1: signal 17 (SIGCHLD) received from 22
+2025/04/29 11:32:24 [notice] 1#1: worker process 22 exited with code 0
+2025/04/29 11:32:24 [notice] 1#1: worker process 20 exited with code 0
+2025/04/29 11:32:24 [notice] 1#1: worker process 21 exited with code 0
+2025/04/29 11:32:24 [notice] 1#1: worker process 23 exited with code 0
+2025/04/29 11:32:24 [notice] 1#1: worker process 24 exited with code 0
+2025/04/29 11:32:24 [notice] 1#1: worker process 25 exited with code 0
+2025/04/29 11:32:24 [notice] 1#1: worker process 26 exited with code 0
+2025/04/29 11:32:24 [notice] 1#1: worker process 27 exited with code 0
+2025/04/29 11:32:24 [notice] 1#1: exit
+2025/05/01 20:08:03 [notice] 1#1: using the "epoll" event method
+2025/05/01 20:08:03 [notice] 1#1: nginx/1.27.5
+2025/05/01 20:08:03 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
+2025/05/01 20:08:03 [notice] 1#1: OS: Linux 6.6.12-linuxkit
+2025/05/01 20:08:03 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2025/05/01 20:08:03 [notice] 1#1: start worker processes
+2025/05/01 20:08:03 [notice] 1#1: start worker process 20
+2025/05/01 20:08:03 [notice] 1#1: start worker process 21
+2025/05/01 20:08:03 [notice] 1#1: start worker process 22
+2025/05/01 20:08:03 [notice] 1#1: start worker process 23
+2025/05/01 20:08:03 [notice] 1#1: start worker process 24
+2025/05/01 20:08:03 [notice] 1#1: start worker process 25
+2025/05/01 20:08:03 [notice] 1#1: start worker process 26
+2025/05/01 20:08:03 [notice] 1#1: start worker process 27
+2025/05/05 09:55:22 [notice] 1#1: using the "epoll" event method
+2025/05/05 09:55:22 [notice] 1#1: nginx/1.27.5
+2025/05/05 09:55:22 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
+2025/05/05 09:55:22 [notice] 1#1: OS: Linux 6.6.12-linuxkit
+2025/05/05 09:55:22 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2025/05/05 09:55:22 [notice] 1#1: start worker processes
+2025/05/05 09:55:22 [notice] 1#1: start worker process 20
+2025/05/05 09:55:22 [notice] 1#1: start worker process 21
+2025/05/05 09:55:22 [notice] 1#1: start worker process 22
+2025/05/05 09:55:22 [notice] 1#1: start worker process 23
+2025/05/05 09:55:22 [notice] 1#1: start worker process 24
+2025/05/05 09:55:22 [notice] 1#1: start worker process 25
+2025/05/05 09:55:22 [notice] 1#1: start worker process 26
+2025/05/05 09:55:22 [notice] 1#1: start worker process 27
+2025/05/05 09:55:31 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2025/05/05 09:55:31 [notice] 21#21: gracefully shutting down
+2025/05/05 09:55:31 [notice] 21#21: exiting
+2025/05/05 09:55:31 [notice] 24#24: gracefully shutting down
+2025/05/05 09:55:31 [notice] 21#21: exit
+2025/05/05 09:55:31 [notice] 24#24: exiting
+2025/05/05 09:55:31 [notice] 26#26: gracefully shutting down
+2025/05/05 09:55:31 [notice] 27#27: gracefully shutting down
+2025/05/05 09:55:31 [notice] 20#20: gracefully shutting down
+2025/05/05 09:55:31 [notice] 20#20: exiting
+2025/05/05 09:55:31 [notice] 22#22: gracefully shutting down
+2025/05/05 09:55:31 [notice] 25#25: gracefully shutting down
+2025/05/05 09:55:31 [notice] 23#23: gracefully shutting down
+2025/05/05 09:55:31 [notice] 24#24: exit
+2025/05/05 09:55:31 [notice] 26#26: exiting
+2025/05/05 09:55:31 [notice] 27#27: exiting
+2025/05/05 09:55:31 [notice] 27#27: exit
+2025/05/05 09:55:31 [notice] 20#20: exit
+2025/05/05 09:55:31 [notice] 22#22: exiting
+2025/05/05 09:55:31 [notice] 25#25: exiting
+2025/05/05 09:55:31 [notice] 23#23: exiting
+2025/05/05 09:55:31 [notice] 23#23: exit
+2025/05/05 09:55:31 [notice] 26#26: exit
+2025/05/05 09:55:31 [notice] 22#22: exit
+2025/05/05 09:55:31 [notice] 25#25: exit
+2025/05/05 09:55:31 [notice] 1#1: signal 17 (SIGCHLD) received from 21
+2025/05/05 09:55:31 [notice] 1#1: worker process 21 exited with code 0
+2025/05/05 09:55:31 [notice] 1#1: signal 29 (SIGIO) received
+2025/05/05 09:55:31 [notice] 1#1: signal 17 (SIGCHLD) received from 27
+2025/05/05 09:55:31 [notice] 1#1: worker process 24 exited with code 0
+2025/05/05 09:55:31 [notice] 1#1: worker process 27 exited with code 0
+2025/05/05 09:55:31 [notice] 1#1: signal 29 (SIGIO) received
+2025/05/05 09:55:31 [notice] 1#1: signal 17 (SIGCHLD) received from 24
+2025/05/05 09:55:31 [notice] 1#1: signal 17 (SIGCHLD) received from 20
+2025/05/05 09:55:31 [notice] 1#1: worker process 20 exited with code 0
+2025/05/05 09:55:31 [notice] 1#1: signal 29 (SIGIO) received
+2025/05/05 09:55:31 [notice] 1#1: signal 17 (SIGCHLD) received from 26
+2025/05/05 09:55:31 [notice] 1#1: worker process 26 exited with code 0
+2025/05/05 09:55:31 [notice] 1#1: signal 29 (SIGIO) received
+2025/05/05 09:55:31 [notice] 1#1: signal 17 (SIGCHLD) received from 25
+2025/05/05 09:55:31 [notice] 1#1: worker process 22 exited with code 0
+2025/05/05 09:55:31 [notice] 1#1: worker process 23 exited with code 0
+2025/05/05 09:55:31 [notice] 1#1: worker process 25 exited with code 0
+2025/05/05 09:55:31 [notice] 1#1: exit
+2025/05/12 17:07:53 [notice] 1#1: using the "epoll" event method
+2025/05/12 17:07:53 [notice] 1#1: nginx/1.27.5
+2025/05/12 17:07:53 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
+2025/05/12 17:07:53 [notice] 1#1: OS: Linux 6.6.12-linuxkit
+2025/05/12 17:07:53 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2025/05/12 17:07:53 [notice] 1#1: start worker processes
+2025/05/12 17:07:53 [notice] 1#1: start worker process 20
+2025/05/12 17:07:53 [notice] 1#1: start worker process 21
+2025/05/12 17:07:53 [notice] 1#1: start worker process 22
+2025/05/12 17:07:53 [notice] 1#1: start worker process 23
+2025/05/12 17:07:53 [notice] 1#1: start worker process 24
+2025/05/12 17:07:53 [notice] 1#1: start worker process 25
+2025/05/12 17:07:53 [notice] 1#1: start worker process 26
+2025/05/12 17:07:53 [notice] 1#1: start worker process 27
+2025/05/12 17:30:05 [error] 21#21: *45 client intended to send too large body: 1314730 bytes, client: 192.168.65.1, server: , request: "POST /admin/users HTTP/1.1", host: "localhost:8091", referrer: "http://localhost:8091/admin/users/create"
+2025/05/12 17:30:16 [error] 21#21: *49 client intended to send too large body: 1314730 bytes, client: 192.168.65.1, server: , request: "POST /admin/users HTTP/1.1", host: "localhost:8091", referrer: "http://localhost:8091/admin/users/create"
+2025/05/12 18:27:44 [error] 21#21: *433 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "192.168.11.115:8091", referrer: "http://localhost:55179/"
+2025/05/13 11:37:02 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2025/05/13 11:37:02 [notice] 21#21: gracefully shutting down
+2025/05/13 11:37:02 [notice] 22#22: gracefully shutting down
+2025/05/13 11:37:02 [notice] 20#20: gracefully shutting down
+2025/05/13 11:37:02 [notice] 23#23: gracefully shutting down
+2025/05/13 11:37:02 [notice] 27#27: gracefully shutting down
+2025/05/13 11:37:02 [notice] 21#21: exiting
+2025/05/13 11:37:02 [notice] 24#24: gracefully shutting down
+2025/05/13 11:37:02 [notice] 26#26: gracefully shutting down
+2025/05/13 11:37:02 [notice] 25#25: gracefully shutting down
+2025/05/13 11:37:02 [notice] 22#22: exiting
+2025/05/13 11:37:02 [notice] 21#21: exit
+2025/05/13 11:37:02 [notice] 27#27: exiting
+2025/05/13 11:37:02 [notice] 22#22: exit
+2025/05/13 11:37:02 [notice] 20#20: exiting
+2025/05/13 11:37:02 [notice] 26#26: exiting
+2025/05/13 11:37:02 [notice] 25#25: exiting
+2025/05/13 11:37:02 [notice] 23#23: exiting
+2025/05/13 11:37:02 [notice] 25#25: exit
+2025/05/13 11:37:02 [notice] 24#24: exiting
+2025/05/13 11:37:02 [notice] 27#27: exit
+2025/05/13 11:37:02 [notice] 20#20: exit
+2025/05/13 11:37:02 [notice] 26#26: exit
+2025/05/13 11:37:02 [notice] 23#23: exit
+2025/05/13 11:37:03 [notice] 1#1: signal 17 (SIGCHLD) received from 27
+2025/05/13 11:37:02 [notice] 24#24: exit
+2025/05/13 11:37:03 [notice] 1#1: worker process 21 exited with code 0
+2025/05/13 11:37:03 [notice] 1#1: worker process 22 exited with code 0
+2025/05/13 11:37:03 [notice] 1#1: worker process 27 exited with code 0
+2025/05/13 11:37:03 [notice] 1#1: signal 29 (SIGIO) received
+2025/05/13 11:37:03 [notice] 1#1: signal 17 (SIGCHLD) received from 21
+2025/05/13 11:37:03 [notice] 1#1: worker process 25 exited with code 0
+2025/05/13 11:37:03 [notice] 1#1: worker process 26 exited with code 0
+2025/05/13 11:37:03 [notice] 1#1: signal 29 (SIGIO) received
+2025/05/13 11:37:03 [notice] 1#1: signal 17 (SIGCHLD) received from 25
+2025/05/13 11:37:03 [notice] 1#1: worker process 24 exited with code 0
+2025/05/13 11:37:03 [notice] 1#1: signal 29 (SIGIO) received
+2025/05/13 11:37:03 [notice] 1#1: signal 17 (SIGCHLD) received from 24
+2025/05/13 11:37:03 [notice] 1#1: signal 17 (SIGCHLD) received from 20
+2025/05/13 11:37:03 [notice] 1#1: worker process 20 exited with code 0
+2025/05/13 11:37:03 [notice] 1#1: worker process 23 exited with code 0
+2025/05/13 11:37:03 [notice] 1#1: exit
+2025/05/17 10:47:43 [notice] 1#1: using the "epoll" event method
+2025/05/17 10:47:43 [notice] 1#1: nginx/1.27.5
+2025/05/17 10:47:43 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
+2025/05/17 10:47:43 [notice] 1#1: OS: Linux 6.6.12-linuxkit
+2025/05/17 10:47:43 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2025/05/17 10:47:43 [notice] 1#1: start worker processes
+2025/05/17 10:47:43 [notice] 1#1: start worker process 20
+2025/05/17 10:47:43 [notice] 1#1: start worker process 21
+2025/05/17 10:47:43 [notice] 1#1: start worker process 22
+2025/05/17 10:47:43 [notice] 1#1: start worker process 23
+2025/05/17 10:47:43 [notice] 1#1: start worker process 24
+2025/05/17 10:47:43 [notice] 1#1: start worker process 25
+2025/05/17 10:47:43 [notice] 1#1: start worker process 26
+2025/05/17 10:47:43 [notice] 1#1: start worker process 27
+2025/05/17 15:01:43 [error] 24#24: *889 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "192.168.11.103:8091", referrer: "http://localhost:61392/"
+2025/05/17 19:12:19 [error] 20#20: *949 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "192.168.11.103:8091"
+2025/05/17 19:12:39 [error] 25#25: *956 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "192.168.11.103:8091"
+2025/05/17 19:14:19 [error] 25#25: *963 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "192.168.11.103:8091"
+2025/05/17 19:14:48 [error] 25#25: *970 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "192.168.11.103:8091"
+2025/05/17 19:15:47 [error] 25#25: *977 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "192.168.11.103:8091"
+2025/05/17 19:17:40 [error] 25#25: *978 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "192.168.11.103:8091", referrer: "http://localhost:56975/"
+2025/05/17 19:20:06 [error] 26#26: *1022 directory index of "/var/www/public/storage/" is forbidden, client: 192.168.65.1, server: , request: "GET /storage/ HTTP/1.1", host: "192.168.11.103:8091"

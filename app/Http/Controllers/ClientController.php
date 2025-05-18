@@ -59,8 +59,17 @@ class ClientController extends Controller
     {
         $clients = $this->user
             ->clients()
+            ->with(['scans' => function ($query) {
+                $query->whereNull('date_pointage_sortie');
+            }])
             ->get();
-        return $clients;
+
+        $clients->each(function ($client) {
+            $lastScan = $client->scans->first();
+            $client->activeInSalle = $lastScan && is_null($lastScan->date_pointage_sortie);
+        });
+
+        return response()->json($clients);
     }
 
     /**
@@ -269,12 +278,17 @@ class ClientController extends Controller
     public function getActiveScans()
     {
         try {
-            $activeScansCount = Scan::whereNull('date_pointage_sortie')->count();
+            $currentDate = \Carbon\Carbon::now()->toDateString();
+            $activeScansCount = Scan::whereNull('date_pointage_sortie')
+                ->whereDate('created_at', $currentDate)
+                ->count();
+
             return response()->json(['active_scans_count' => $activeScansCount]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred', 'message' => $e->getMessage()], 500);
         }
     }
+
     public function getScansCountByDay($date)
     {
         try {
@@ -298,6 +312,43 @@ class ClientController extends Controller
             return response()->json(['error' => 'Client not found'], 404);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function addScan(Request $request, $clieId)
+    {
+        try {
+            $currentDate = \Carbon\Carbon::now()->toDateString();
+
+            // Vérifier si un scan existe déjà pour le même utilisateur le même jour
+            $existingScan = Scan::where('client_id', $clieId)
+                ->whereDate('created_at', $currentDate)
+                ->first();
+
+            if ($existingScan) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'A scan already exists for this user today.'
+                ], 400);
+            }
+
+            $scan = new Scan();
+            $scan->client_id = $clieId;
+            $scan->user_id = $this->user->id; // Use the authenticated user's ID
+            $scan->barcode = $this->user->uuid; // Use the authenticated user's UUID for the barcode
+            $scan->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Scan added successfully',
+                'data' => $scan
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error adding scan',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
 }
