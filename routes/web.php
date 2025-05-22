@@ -50,5 +50,12 @@ Route::prefix('admin')->group(function () {
         // Gestion des associations client-utilisateur
         Route::get('/users/{id}/assign-clients', [AdminDashboardController::class, 'showAssignClientForm'])->name('admin.users.assign-clients');
         Route::post('/users/{id}/assign-clients', [AdminDashboardController::class, 'assignClients'])->name('admin.users.assign-clients.store');
+        
+        // Route pour modifier un client
+        Route::get('/clients/{id}/edit', [AdminDashboardController::class, 'editClient'])->name('admin.clients.edit');
+        // Route pour mettre à jour un client
+        Route::put('/clients/{id}', [AdminDashboardController::class, 'updateClient'])->name('admin.clients.update');
+        // Route pour supprimer un client
+        Route::delete('/clients/{id}', [AdminDashboardController::class, 'deleteClient'])->name('admin.clients.destroy');
     });
 });

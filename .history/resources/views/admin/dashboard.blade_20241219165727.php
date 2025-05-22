@@ -9,7 +9,7 @@
                 <h4 class="text-center text-white">Menu Administrateur</h4>
                 <ul class="nav flex-column mt-4">
                     <li class="nav-item">
-                        <a href="{{ route('admin.users') }}" class="nav-link text-white">Liste des utilisateurs</a>
+                        <a href="{{ route('admin.users') }}" class="nav-link text-white">Liste des salles</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.users.create') }}" class="nav-link text-white">Ajouter un

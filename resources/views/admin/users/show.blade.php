@@ -38,9 +38,9 @@
                         <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-outline-dark">
                             <i class='bx bx-edit-alt me-2'></i>Modifier
                         </a>
-                        <a href="{{ route('admin.users.assign-clients', $user->id) }}" class="btn btn-outline-danger">
+                        <!-- <a href="{{ route('admin.users.assign-clients', $user->id) }}" class="btn btn-outline-danger">
                             <i class='bx bx-link me-2'></i>Gérer les clients associés
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>
@@ -80,9 +80,16 @@
                                             <td>{{ $client->created_at->format('d/m/Y') }}</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="#" class="btn btn-sm btn-outline-dark">
-                                                        <i class='bx bx-show'></i>
+                                                    <a href="{{ route('admin.clients.edit', $client->id) }}" class="btn btn-sm btn-outline-dark">
+                                                        <i class='bx bx-edit'></i> Modifier
                                                     </a>
+                                                    <form action="{{ route('admin.clients.destroy', $client->id) }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?');">
+                                                            <i class='bx bx-trash'></i> Supprimer
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>
@@ -96,9 +103,77 @@
                             <p class="text-muted mt-2">Aucun client associé à cet utilisateur</p>
                         </div>
                     @endif
+
+                    <!-- Formulaire pour créer un nouveau client et l'associer directement -->
+                    <div class="mt-4">
+                        <h5 class="text-danger mb-3">
+                            <i class='bx bx-user-plus me-2'></i>Ajouter un nouveau client
+                        </h5>
+                        <form action="{{ route('admin.users.assign-clients.store', $user->id) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="new_client" value="1">
+                            <div class="mb-3">
+                                <label for="first_name" class="form-label">Prénom</label>
+                                <input type="text" name="first_name" id="first_name" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="last_name" class="form-label">Nom</label>
+                                <input type="text" name="last_name" id="last_name" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" id="email" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone_number" class="form-label">Téléphone</label>
+                                <input type="text" name="phone_number" id="phone_number" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="birth_date" class="form-label">Date de naissance</label>
+                                <input type="date" name="birth_date" id="birth_date" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="registration_date" class="form-label">Date d'inscription</label>
+                                <input type="date" name="registration_date" id="registration_date" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiration_date" class="form-label">Date d'expiration</label>
+                                <input type="date" name="expiration_date" id="expiration_date" class="form-control">
+                            </div>
+                            <!-- Ajout du champ âge dans le formulaire -->
+                            <div class="mb-3">
+                                <label for="age" class="form-label">Âge</label>
+                                <input type="number" name="age" id="age" class="form-control">
+                            </div>
+                            <!-- Suppression de l'input de confirmation de mot de passe -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Mot de passe</label>
+                                <input type="password" name="password" id="password" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-danger">
+                                <i class='bx bx-save me-2'></i>Ajouter et Associer
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form[action*="assign-clients"]');
+        const password = document.getElementById('password');
+
+        form.addEventListener('submit', function (event) {
+            if (!password.value) {
+                event.preventDefault();
+                alert('Le mot de passe est requis.');
+            }
+        });
+    });
+</script>
 @endsection
