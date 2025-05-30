@@ -10,7 +10,7 @@ class UserAdminAuthController extends Controller
 {
     public function __construct()
     {
-        // Ajouter une vérification pour rediriger un utilisateur connecté
+        // Ajouter une vérification pour rediriger une salle connecté
         $this->middleware(function ($request, $next) {
             if (Auth::guard('user_admin')->check()) {
                 return redirect()->route('admin.dashboard');

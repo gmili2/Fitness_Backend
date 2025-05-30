@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h2>Ajouter un Utilisateur</h2>
+    <h2>Ajouter une salle</h2>
     <form method="POST" action="{{ route('admin.users.store') }}">
         @csrf
         <div class="form-group">

@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container mt-5">
-    <h2>Liste des Utilisateurs</h2>
-    <a href="{{ route('admin.users.create') }}" class="btn btn-danger mb-3">Ajouter un utilisateur</a>
+    <h2>Liste des salles</h2>
+    <a href="{{ route('admin.users.create') }}" class="btn btn-danger mb-3">Ajouter une salle</a>
     <table class="table table-bordered">
         <thead>
             <tr>

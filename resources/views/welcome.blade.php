@@ -96,7 +96,7 @@
     </style>
 </head>
 <body class="antialiased">
-    <nav class="navbar">
+    <!-- <nav class="navbar">
         <div class="nav-links">
             @if (Route::has('login'))
                 @auth
@@ -110,14 +110,14 @@
                 @endauth
             @endif
         </div>
-    </nav>
+    </nav> -->
 
     <section class="hero">
         <div class="hero-content">
-            <h1 class="hero-title">Bienvenue sur votre Application Fitness</h1>
+            <h1 class="hero-title">Bienvenue sur votre Application mygympro</h1>
             <p class="hero-subtitle">Rejoignez-nous pour transformer votre vie et atteindre vos objectifs de remise en forme</p>
             @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="cta-button">Commencer maintenant</a>
+                <a href="{{ route('admin.login') }}" class="cta-button">Commencer maintenant</a>
             @endif
         </div>
     </section>

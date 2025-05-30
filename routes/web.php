@@ -47,6 +47,11 @@ Route::prefix('admin')->group(function () {
         Route::put('/users/{id}', [AdminDashboardController::class, 'updateUser'])->name('admin.users.update');
         Route::delete('/users/{id}', [AdminDashboardController::class, 'deleteUser'])->name('admin.users.delete');
         
+        // Activer une salle
+        Route::post('/users/{id}/activate', [AdminDashboardController::class, 'activateUser'])->name('admin.users.activate');
+        // Désactiver une salle
+        Route::post('/users/{id}/deactivate', [AdminDashboardController::class, 'deactivateUser'])->name('admin.users.deactivate');
+        
         // Gestion des associations client-utilisateur
         Route::get('/users/{id}/assign-clients', [AdminDashboardController::class, 'showAssignClientForm'])->name('admin.users.assign-clients');
         Route::post('/users/{id}/assign-clients', [AdminDashboardController::class, 'assignClients'])->name('admin.users.assign-clients.store');

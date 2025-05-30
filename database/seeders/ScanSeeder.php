@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Scan;
 
 class ScanSeeder extends Seeder
 {
@@ -13,6 +14,6 @@ class ScanSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Scan::factory()->count(10)->create();
     }
 }

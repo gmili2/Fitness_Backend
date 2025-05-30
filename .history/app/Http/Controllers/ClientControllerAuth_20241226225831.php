@@ -48,7 +48,7 @@ class ClientControllerAuth extends Controller
         $userLieAuClient = $client->user; // Récupère l'utilisateur lié au client
 
         if (!$userLieAuClient) {
-            return response()->json(['error' => 'Aucun utilisateur lié à ce client.'], 404);
+            return response()->json(['error' => 'Aucune salle lié à ce client.'], 404);
         }
 
         if ($codeBarreRecu === $userLieAuClient->uuid) { // Comparaison avec l'UUID de l'utilisateur

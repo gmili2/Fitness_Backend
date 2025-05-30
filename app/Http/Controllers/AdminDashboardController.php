@@ -17,9 +17,16 @@ class AdminDashboardController extends Controller
     }
 
     // Lister les utilisateurs
-    public function listUsers()
+    public function listUsers(Request $request)
     {
-        $users = User::all(); // Récupère tous les utilisateurs
+        $query = User::query();
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+        if ($request->filled('email')) {
+            $query->where('email', 'like', '%' . $request->email . '%');
+        }
+        $users = $query->paginate(10);
         return view('admin.users.index', compact('users'));
     }
 
@@ -65,7 +72,7 @@ class AdminDashboardController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
-    // Mettre à jour un utilisateur
+    // Mettre à jour une salle
     public function updateUser(Request $request, $id)
     {
         $request->validate([
@@ -100,7 +107,7 @@ class AdminDashboardController extends Controller
         return redirect()->route('admin.users')->with('success', 'Utilisateur mis à jour avec succès');
     }
 
-    // Supprimer un utilisateur
+    // Supprimer une salle
     public function deleteUser($id)
     {
         $user = User::findOrFail($id);
@@ -109,7 +116,25 @@ class AdminDashboardController extends Controller
         return redirect()->route('admin.users')->with('success', 'Utilisateur supprimé avec succès');
     }
 
-    // Afficher les détails d'un utilisateur
+    // Activer une salle
+    public function activateUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->is_active = true;
+        $user->save();
+        return redirect()->route('admin.users')->with('success', 'Utilisateur activé avec succès.');
+    }
+
+    // Désactiver une salle
+    public function deactivateUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->is_active = false;
+        $user->save();
+        return redirect()->route('admin.users')->with('success', 'Utilisateur désactivé avec succès.');
+    }
+
+    // Afficher les détails d'une salle
     public function showUser($id)
     {
         $user = User::with('clients')->findOrFail($id);
@@ -127,7 +152,7 @@ class AdminDashboardController extends Controller
         return view('admin.users.assign-clients', compact('user', 'clients'));
     }
 
-    // Associer des clients à un utilisateur
+    // Associer des clients à une salle
     public function assignClients(Request $request, $userId)
     {
         try {

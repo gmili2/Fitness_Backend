@@ -25,9 +25,6 @@
                             <button type="submit" class="btn btn-danger btn-block">Connexion</button>
                         </div>
                     </form>
-                    <div class="text-center mt-3">
-                        <a href="{{ route('admin.register') }}" class="btn btn-dark btn-block">S'inscrire</a>
-                    </div>
                 </div>
             </div>
         </div>

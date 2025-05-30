@@ -4,12 +4,23 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-header bg-white d-flex justify-content-between align-items-center">
-            <h4 class="mb-0 text-danger">Liste des Utilisateurs</h4>
+            <h4 class="mb-0 text-danger">Liste des salles</h4>
             <a href="{{ route('admin.users.create') }}" class="btn btn-danger">
-                <i class='bx bx-plus-circle me-2'></i>Ajouter un utilisateur
+                <i class='bx bx-plus-circle me-2'></i>Ajouter une salle
             </a>
         </div>
         <div class="card-body">
+            <form method="GET" action="" class="mb-3 row g-2">
+                <div class="col-md-4">
+                    <input type="text" name="name" class="form-control" placeholder="Nom" value="{{ request('name') }}">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="email" class="form-control" placeholder="Email" value="{{ request('email') }}">
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-outline-danger">Rechercher</button>
+                </div>
+            </form>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead class="table-light">
@@ -65,12 +76,27 @@
                                             @csrf
                                             @method('DELETE')
                                         </form>
+                                        @if($user->is_active)
+                                            <form action="{{ route('admin.users.deactivate', $user->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-warning">Désactiver</button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('admin.users.activate', $user->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-success">Activer</button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            {{-- Pagination --}}
+            <div class="d-flex justify-content-center mt-3">
+                {{ $users->withQueryString()->links() }}
             </div>
         </div>
     </div>

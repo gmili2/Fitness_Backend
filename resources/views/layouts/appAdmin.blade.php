@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }} - Admin</title>
+    <title> mygympro</title>
     
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -77,7 +77,7 @@
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/admin') }}">
-                    {{ config('app.name', 'Laravel') }} - Administration
+                      mygympro
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
@@ -89,11 +89,6 @@
                             @if (Route::has('admin.login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('admin.login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-                            @if (Route::has('admin.register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('admin.register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -111,6 +106,14 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item align-self-center ms-2">
+                                <form method="POST" action="{{ route('admin.logout') }}" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class='bx bx-log-out'></i> Déconnexion
+                                    </button>
+                                </form>
+                            </li>
                         @endguest
                     </ul>
                 </div>
@@ -122,16 +125,16 @@
             <div class="row">
                 <div class="col-md-3 col-lg-2 px-0" id="sidebar">
                     <div class="p-3">
-                        <h4 class="text-center text-white mb-4">Menu Administrateur</h4>
+                        <h4 class="text-center text-white mb-4">Menu mygympro</h4>
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('admin.users') }}" class="nav-link">
-                                    <i class='bx bx-user me-2'></i>Liste des utilisateurs
+                                    <i class='bx bx-user me-2'></i>Liste des salles
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('admin.users.create') }}" class="nav-link">
-                                    <i class='bx bx-user-plus me-2'></i>Ajouter un utilisateur
+                                    <i class='bx bx-user-plus me-2'></i>Ajouter une salle
                                 </a>
                             </li>
                         </ul>
@@ -140,7 +143,7 @@
 
                 <div class="col-md-9 col-lg-10" id="main-content">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h1 class="text-danger h3 mb-0">Tableau de Bord Administrateur</h1>
+                        <h1 class="text-danger h3 mb-0">Tableau de Bord mygympro</h1>
                         <button class="btn btn-dark d-md-none" id="toggle-sidebar">
                             <i class='bx bx-menu'></i>
                         </button>

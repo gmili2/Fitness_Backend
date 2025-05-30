@@ -53,7 +53,7 @@ class AdminDashboardController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
-    // Mettre à jour un utilisateur
+    // Mettre à jour une salle
     public function updateUser(Request $request, $id)
     {
         $request->validate([
@@ -73,7 +73,7 @@ class AdminDashboardController extends Controller
         return redirect()->route('admin.users')->with('success', 'Utilisateur mis à jour avec succès');
     }
 
-    // Supprimer un utilisateur
+    // Supprimer une salle
     public function deleteUser($id)
     {
         $user = User::findOrFail($id);
