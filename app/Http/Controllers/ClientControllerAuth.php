@@ -188,6 +188,7 @@ class ClientControllerAuth extends Controller
                 ->groupBy(function ($scan) {
                     return \Carbon\Carbon::parse($scan->created_at)->format('Y-m-d');
                 });
+
             $timeByDay = $scans->map(function ($dayScans) {
                 $totalMinutes = $dayScans->sum(function ($scan) {
                     if ($scan->date_pointage_sortie) {

@@ -79,3 +79,24 @@ Route::group([
     Route::post('clients/pointer/{clieId}', [ClientController::class, 'addScan']);
 
 });
+
+Route::get('/image/{folder}/{filename}', function ($folder, $filename) {
+    if (!in_array($folder, ['clients', 'users'])) {
+        abort(403, 'Unauthorized access');
+    }
+
+    $path = public_path("$folder/$filename");
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    $mimeType = mime_content_type($path);
+    $contents = file_get_contents($path);
+
+    return response($contents, 200)
+        ->header('Content-Type', $mimeType)
+        ->header('Access-Control-Allow-Origin', '*')
+        ->header('Access-Control-Allow-Methods', 'GET, OPTIONS')
+        ->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
+});

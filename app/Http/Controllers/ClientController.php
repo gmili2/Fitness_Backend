@@ -111,7 +111,11 @@ class ClientController extends Controller
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $filename = time() . '_' . $image->getClientOriginalName();
-                $path = $image->storeAs('public/clients', $filename);
+                $destinationPath = public_path('clients');
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0777, true);
+                }
+                $image->move($destinationPath, $filename);
                 $client->image_path = 'clients/' . $filename;
             }
 
@@ -195,7 +199,11 @@ class ClientController extends Controller
                 
                 $image = $request->file('image');
                 $filename = time() . '_' . $image->getClientOriginalName();
-                $path = $image->storeAs('public/clients', $filename);
+                $destinationPath = public_path('clients');
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0777, true);
+                }
+                $image->move($destinationPath, $filename);
                 $client->image_path = 'clients/' . $filename;
             }
 
@@ -319,7 +327,6 @@ class ClientController extends Controller
     {
         try {
             $currentDate = \Carbon\Carbon::now()->toDateString();
-
             // Vérifier si un scan existe déjà pour le même utilisateur le même jour
             $existingScan = Scan::where('client_id', $clieId)
                 ->whereDate('created_at', $currentDate)

@@ -19,7 +19,7 @@ class CreateScansTable extends Migration
                 ->constrained('clients') // Clé étrangère vers la table `clients`
                 ->onDelete('cascade'); // Supprime les scans si le client est supprimé
             $table->string('barcode'); // Code-barre scanné
-            $table->timestamp('scanned_at')->useCurrent(); // Date et heure du scan
+            $table->timestamp('scanned_at'); // Date et heure du scan
             $table->timestamps(); // created_at et updated_at
         });
     }
