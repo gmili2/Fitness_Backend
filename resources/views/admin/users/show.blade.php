@@ -1,179 +1,240 @@
 @extends('layouts.appAdmin')
+@section('page-title', $user->name)
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header bg-white">
-                    <h5 class="text-danger mb-0">
-                        <i class='bx bxs-user-detail me-2'></i>Informations de l'utilisateur
-                    </h5>
+<div class="page-header">
+    <div>
+        <h4>{{ $user->name }}</h4>
+        <nav aria-label="breadcrumb" class="mt-1">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" class="text-decoration-none text-muted">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.users') }}" class="text-decoration-none text-muted">Salles</a></li>
+                <li class="breadcrumb-item active">{{ $user->name }}</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn-primary-custom">
+            <i class='bx bx-edit'></i> Modifier
+        </a>
+        <a href="{{ route('admin.users') }}" class="btn btn-light border" style="border-radius:8px;font-size:.875rem;padding:9px 16px">
+            <i class='bx bx-arrow-back me-1'></i> Retour
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    {{-- ── Fiche salle ── --}}
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body text-center pb-2">
+                <div class="mb-3" style="position:relative;display:inline-block">
+                    @if($user->image)
+                        <img src="{{ $user->image_url }}" alt="" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #f2f4f7">
+                    @else
+                        <div style="width:90px;height:90px;border-radius:50%;background:#fef3f2;display:flex;align-items:center;justify-content:center;margin:0 auto;border:3px solid #f2f4f7">
+                            <i class='bx bxs-building' style="font-size:2.5rem;color:#e53935"></i>
+                        </div>
+                    @endif
+                    <span style="
+                        position:absolute;bottom:2px;right:2px;
+                        width:16px;height:16px;border-radius:50%;
+                        background:{{ $user->is_active ? '#22c55e' : '#ef4444' }};
+                        border:2px solid white;
+                    "></span>
                 </div>
-                <div class="card-body">
-                    <div class="text-center mb-4">
-                        @if($user->image)
-                            <img src="{{ $user->image_url }}" alt="Photo de profil" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
-                        @else
-                            <i class='bx bxs-user-circle text-danger' style="font-size: 5rem;"></i>
-                        @endif
+                <h6 style="font-weight:700;margin-bottom:2px">{{ $user->name }}</h6>
+                <p class="text-muted" style="font-size:.82rem;margin-bottom:12px">{{ $user->email }}</p>
+                @if($user->is_active)
+                    <span class="badge-active">Salle active</span>
+                @else
+                    <span class="badge-inactive">Salle inactive</span>
+                @endif
+            </div>
+            <div class="card-body pt-0">
+                <div style="background:#f9fafb;border-radius:10px;padding:16px">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted" style="font-size:.8rem">Inscription</span>
+                        <span style="font-size:.82rem;font-weight:500">{{ $user->created_at->format('d/m/Y') }}</span>
                     </div>
-                    <div class="mb-3">
-                        <label class="text-muted">Nom</label>
-                        <p class="h5">{{ $user->name }}</p>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted" style="font-size:.8rem">Dernière MAJ</span>
+                        <span style="font-size:.82rem;font-weight:500">{{ $user->updated_at->format('d/m/Y') }}</span>
                     </div>
-                    <div class="mb-3">
-                        <label class="text-muted">Email</label>
-                        <p class="h5">{{ $user->email }}</p>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted" style="font-size:.8rem">Clients</span>
+                        <span style="font-size:.82rem;font-weight:700;color:#e53935">{{ $user->clients->count() }}</span>
                     </div>
-                    <div class="mb-3">
-                        <label class="text-muted">Date d'inscription</label>
-                        <p class="h5">{{ $user->created_at->format('d/m/Y') }}</p>
-                    </div>
-                    <div class="mb-3">
-                        <label class="text-muted">Dernière mise à jour</label>
-                        <p class="h5">{{ $user->updated_at->format('d/m/Y') }}</p>
-                    </div>
-                    <div class="d-grid gap-2">
-                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-outline-dark">
-                            <i class='bx bx-edit-alt me-2'></i>Modifier
-                        </a>
-                        <!-- <a href="{{ route('admin.users.assign-clients', $user->id) }}" class="btn btn-outline-danger">
-                            <i class='bx bx-link me-2'></i>Gérer les clients associés
-                        </a> -->
-                    </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-3">
+                    @if($user->is_active)
+                        <form action="{{ route('admin.users.deactivate', $user->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-warning btn-sm w-100" style="border-radius:8px" onclick="return confirm('Désactiver cette salle ?')">
+                                <i class='bx bx-pause me-1'></i> Désactiver
+                            </button>
+                        </form>
+                    @else
+                        <form action="{{ route('admin.users.activate', $user->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-success btn-sm w-100" style="border-radius:8px" onclick="return confirm('Activer cette salle ?')">
+                                <i class='bx bx-play me-1'></i> Activer
+                            </button>
+                        </form>
+                    @endif
+                    <form action="{{ route('admin.users.delete', $user->id) }}" method="POST">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="btn btn-outline-danger btn-sm w-100" style="border-radius:8px" onclick="return confirm('Supprimer cette salle définitivement ?')">
+                            <i class='bx bx-trash me-1'></i> Supprimer
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header bg-white">
-                    <h5 class="text-danger mb-0">
-                        <i class='bx bx-group me-2'></i>Clients associés
-                    </h5>
+    {{-- ── Clients + Formulaire ── --}}
+    <div class="col-lg-8 d-flex flex-column gap-4">
+        {{-- Clients --}}
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h6 class="mb-0" style="font-weight:600"><i class='bx bx-group me-2 text-danger'></i>Clients associés</h6>
+                <span class="badge" style="background:#fef3f2;color:#e53935;padding:4px 10px;border-radius:20px;font-size:.75rem">
+                    {{ $user->clients->count() }} clients
+                </span>
+            </div>
+            <div class="card-body p-0">
+                @if($user->clients->count() > 0)
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Client</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Inscription</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($user->clients as $client)
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div style="width:32px;height:32px;border-radius:50%;background:#fef3f2;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                                            <i class='bx bxs-user' style="color:#e53935;font-size:.9rem"></i>
+                                        </div>
+                                        <span style="font-weight:500;font-size:.875rem">{{ $client->first_name }} {{ $client->last_name }}</span>
+                                    </div>
+                                </td>
+                                <td class="text-muted" style="font-size:.82rem">{{ $client->email }}</td>
+                                <td class="text-muted" style="font-size:.82rem">{{ $client->phone_number ?? '—' }}</td>
+                                <td class="text-muted" style="font-size:.82rem">{{ $client->created_at->format('d/m/Y') }}</td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <a href="{{ route('admin.clients.edit', $client->id) }}" class="btn-icon btn-icon-edit" title="Modifier">
+                                            <i class='bx bx-edit'></i>
+                                        </a>
+                                        <form action="{{ route('admin.clients.destroy', $client->id) }}" method="POST">
+                                            @csrf @method('DELETE')
+                                            <button type="submit" class="btn-icon btn-icon-del" title="Supprimer"
+                                                onclick="return confirm('Supprimer ce client ?')">
+                                                <i class='bx bx-trash'></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                <div class="card-body">
-                    @if($user->clients->count() > 0)
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Nom</th>
-                                        <th>Email</th>
-                                        <th>Téléphone</th>
-                                        <th>Date d'inscription</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($user->clients as $client)
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <i class='bx bxs-user-circle fs-4 me-2 text-danger'></i>
-                                                    {{ $client->first_name }} {{ $client->last_name }}
-                                                </div>
-                                            </td>
-                                            <td>{{ $client->email }}</td>
-                                            <td>{{ $client->phone_number }}</td>
-                                            <td>{{ $client->created_at->format('d/m/Y') }}</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a href="{{ route('admin.clients.edit', $client->id) }}" class="btn btn-sm btn-outline-dark">
-                                                        <i class='bx bx-edit'></i> Modifier
-                                                    </a>
-                                                    <form action="{{ route('admin.clients.destroy', $client->id) }}" method="POST" style="display:inline;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?');">
-                                                            <i class='bx bx-trash'></i> Supprimer
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @else
-                        <div class="text-center py-4">
-                            <i class='bx bx-user-x text-danger' style="font-size: 4rem;"></i>
-                            <p class="text-muted mt-2">Aucun client associé à cet utilisateur</p>
-                        </div>
-                    @endif
+                @else
+                <div class="text-center py-5">
+                    <i class='bx bx-user-x' style="font-size:3rem;color:#d0d5dd"></i>
+                    <p class="text-muted mt-2 mb-0" style="font-size:.875rem">Aucun client associé</p>
+                </div>
+                @endif
+            </div>
+        </div>
 
-                    <!-- Formulaire pour créer un nouveau client et l'associer directement -->
-                    <div class="mt-4">
-                        <h5 class="text-danger mb-3">
-                            <i class='bx bx-user-plus me-2'></i>Ajouter un nouveau client
-                        </h5>
-                        <form action="{{ route('admin.users.assign-clients.store', $user->id) }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="new_client" value="1">
-                            <div class="mb-3">
-                                <label for="first_name" class="form-label">Prénom</label>
-                                <input type="text" name="first_name" id="first_name" class="form-control" required>
+        {{-- Ajouter un client --}}
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0" style="font-weight:600"><i class='bx bx-user-plus me-2 text-danger'></i>Ajouter un client</h6>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('admin.users.assign-clients.store', $user->id) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="new_client" value="1">
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Prénom</label>
+                            <input type="text" name="first_name" class="form-control" value="{{ old('first_name') }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Nom</label>
+                            <input type="text" name="last_name" class="form-control" value="{{ old('last_name') }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Téléphone</label>
+                            <input type="text" name="phone_number" class="form-control" value="{{ old('phone_number') }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Âge</label>
+                            <input type="number" name="age" class="form-control" value="{{ old('age') }}" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Date de naissance</label>
+                            <input type="date" name="birth_date" class="form-control" value="{{ old('birth_date') }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Date d'inscription</label>
+                            <input type="date" name="registration_date" class="form-control" value="{{ old('registration_date') }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Date d'expiration</label>
+                            <input type="date" name="expiration_date" class="form-control" value="{{ old('expiration_date') }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Mot de passe</label>
+                            <div class="input-group">
+                                <span class="input-icon"><i class='bx bx-lock-alt'></i></span>
+                                <input type="password" name="password" id="client-password" class="form-control" required>
+                                <button type="button" class="btn btn-light border-start-0 border"
+                                    style="border-radius:0 8px 8px 0;border-left:none!important"
+                                    onclick="togglePassword('client-password', this)">
+                                    <i class='bx bx-show'></i>
+                                </button>
                             </div>
-                            <div class="mb-3">
-                                <label for="last_name" class="form-label">Nom</label>
-                                <input type="text" name="last_name" id="last_name" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" name="email" id="email" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone_number" class="form-label">Téléphone</label>
-                                <input type="text" name="phone_number" id="phone_number" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="birth_date" class="form-label">Date de naissance</label>
-                                <input type="date" name="birth_date" id="birth_date" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="registration_date" class="form-label">Date d'inscription</label>
-                                <input type="date" name="registration_date" id="registration_date" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="expiration_date" class="form-label">Date d'expiration</label>
-                                <input type="date" name="expiration_date" id="expiration_date" class="form-control">
-                            </div>
-                            <!-- Ajout du champ âge dans le formulaire -->
-                            <div class="mb-3">
-                                <label for="age" class="form-label">Âge</label>
-                                <input type="number" name="age" id="age" class="form-control">
-                            </div>
-                            <!-- Suppression de l'input de confirmation de mot de passe -->
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Mot de passe</label>
-                                <input type="password" name="password" id="password" class="form-control" required>
-                            </div>
-                            <button type="submit" class="btn btn-danger">
-                                <i class='bx bx-save me-2'></i>Ajouter et Associer
-                            </button>
-                        </form>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="mt-3">
+                        <button type="submit" class="btn-primary-custom">
+                            <i class='bx bx-user-plus'></i> Ajouter et associer
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const form = document.querySelector('form[action*="assign-clients"]');
-        const password = document.getElementById('password');
-
-        form.addEventListener('submit', function (event) {
-            if (!password.value) {
-                event.preventDefault();
-                alert('Le mot de passe est requis.');
-            }
-        });
-    });
+function togglePassword(id, btn) {
+    const input = document.getElementById(id);
+    const isText = input.type === 'text';
+    input.type = isText ? 'password' : 'text';
+    btn.innerHTML = isText ? "<i class='bx bx-show'></i>" : "<i class='bx bx-hide'></i>";
+}
 </script>
-@endsection
+@endpush

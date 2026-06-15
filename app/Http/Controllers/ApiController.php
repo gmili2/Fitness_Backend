@@ -2,22 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use JWTAuth;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Validator;
 
 class ApiController extends Controller
 {
-// public function __construct() {
-// ;}
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login']]);

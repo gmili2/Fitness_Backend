@@ -24,9 +24,7 @@ class Client extends Authenticatable implements JWTSubject
         'registration_date',
         'expiration_date',
         'user_id',
-        'created_at',
         'password',
-        'updated_at'
     ];
 
     protected $hidden = [
