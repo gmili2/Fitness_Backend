@@ -37,7 +37,7 @@ class Client extends Authenticatable implements JWTSubject
     public function getImageUrlAttribute()
     {
         if ($this->image_path) {
-            return Storage::url($this->image_path);
+            return url('api/image/' . $this->image_path);
         }
         return null;
     }

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ClientController extends Controller
 {
@@ -94,7 +95,7 @@ class ClientController extends Controller
 
             if ($request->hasFile('image')) {
                 $image           = $request->file('image');
-                $filename        = time() . '_' . $image->getClientOriginalName();
+                $filename        = time() . '_' . (Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) ?: 'image') . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('clients');
                 if (!file_exists($destinationPath)) {
                     mkdir($destinationPath, 0777, true);
@@ -162,7 +163,7 @@ class ClientController extends Controller
                     Storage::delete('public/' . $client->image_path);
                 }
                 $image           = $request->file('image');
-                $filename        = time() . '_' . $image->getClientOriginalName();
+                $filename        = time() . '_' . (Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) ?: 'image') . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('clients');
                 if (!file_exists($destinationPath)) {
                     mkdir($destinationPath, 0777, true);

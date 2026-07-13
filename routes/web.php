@@ -25,10 +25,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //todo : gestion des clients pour les utilisateurs
 Route::prefix('admin')->group(function () {
     Route::get('/login', [UserAdminAuthController::class, 'showLoginForm'])->name('admin.login');

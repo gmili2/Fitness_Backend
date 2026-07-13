@@ -55,7 +55,7 @@ class AdminDashboardController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = time() . '_' . $image->getClientOriginalName();
+            $filename = time() . '_' . (Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) ?: 'image') . '.' . $image->getClientOriginalExtension();
             $path = $image->storeAs('public/users', $filename);
             $userData['image'] = 'users/' . $filename;
         }
@@ -97,7 +97,7 @@ class AdminDashboardController extends Controller
             }
             
             $image = $request->file('image');
-            $filename = time() . '_' . $image->getClientOriginalName();
+            $filename = time() . '_' . (Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) ?: 'image') . '.' . $image->getClientOriginalExtension();
             $path = $image->storeAs('public/users', $filename);
             $user->image = 'users/' . $filename;
         }
